@@ -8,10 +8,6 @@ private:
     T data;
 public:
     Rational(T data): data(data) {}
-    Rational(const Rational rat)
-    {
-
-    }
     ~Rational();
     Rational operator=(Rational a)
     {
