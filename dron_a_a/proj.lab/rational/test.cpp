@@ -1,6 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "rational.h"
+#include <sstream>
+
 TEST_SUITE("operators:")
 {
     Rational r_1 (50,100); // 1/2
@@ -48,7 +50,7 @@ TEST_CASE("zero denominator")
 }
 TEST_CASE(">> operator")
 {
-    Rational r = Rational(5);
+    Rational r = Rational();
     std::cin >> r; //enter 5 2
     CHECK(r == Rational(5,2));
 }
