@@ -3,7 +3,7 @@
 #include<exception>
 #include "M3i.h"
 
-    M3i::M3i(const int rows_,const int cols_,const int depth_ = 1) noexcept: rows(rows_), cols(cols_), depth(depth_),
+    M3i::M3i(const int rows_,const int cols_,const int depth_) noexcept: rows(rows_), cols(cols_), depth(depth_),
     ten(std::vector <std::vector <std::vector <int>>>(rows_, std::vector< std::vector<int> >(cols_, std::vector <int>(depth_, 0)))) {}
 
     int& M3i::operator ()(int row_, int column_, int depth_)
