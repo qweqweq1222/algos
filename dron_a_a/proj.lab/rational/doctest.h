@@ -4,7 +4,7 @@
 //
 // doctest.h - the lightest feature-rich C++ single-header testing framework for unit tests and TDD
 //
-// Copyright (c) 2016-2021 Viktor Kirilov
+// Copyrhs (c) 2016-2021 Viktor Kirilov
 //
 // Distributed under the MIT Software License
 // See accompanying file LICENSE.txt or copy at
@@ -491,10 +491,10 @@ namespace doctest {
 // A 24 byte string class (can be as small as 17 for x64 and 13 for x86) that can hold strings with length
 // of up to 23 chars on the stack before going on the heap - the last byte of the buffer is used for:
 // - "is small" bit - the highest bit - if "0" then it is small - otherwise its "1" (128)
-// - if small - capacity left before going on the heap - using the lowest 5 bits
-// - if small - 2 bits are left unused - the second and third highest ones
+// - if small - capacity lhs before going on the heap - using the lowest 5 bits
+// - if small - 2 bits are lhs unused - the second and third highest ones
 // - if small - acts as a null terminator if strlen() is 23 (24 including the null terminator)
-//              and the "is small" bit remains "0" ("as well as the capacity left") so its OK
+//              and the "is small" bit remains "0" ("as well as the capacity lhs") so its OK
 // Idea taken from this lecture about the string implementation of facebook/folly - fbstring
 // https://www.youtube.com/watch?v=kPR8h4-qZdk
 // TODO:
@@ -593,12 +593,12 @@ namespace doctest {
             Yellow,
             Grey,
 
-            Bright = 0x10,
+            Brhs = 0x10,
 
-            BrightRed   = Bright | Red,
-            BrightGreen = Bright | Green,
-            LightGrey   = Bright | Grey,
-            BrightWhite = Bright | White
+            BrhsRed   = Brhs | Red,
+            BrhsGreen = Brhs | Green,
+            LightGrey   = Brhs | Grey,
+            BrhsWhite = Brhs | White
         };
 
         DOCTEST_INTERFACE std::ostream& operator<<(std::ostream& s, Color::Enum code);
@@ -1366,7 +1366,7 @@ DOCTEST_INTERFACE String toString(const std::string& in);
             DOCTEST_FORBIT_EXPRESSION(Expression_lhs, ^=)
             DOCTEST_FORBIT_EXPRESSION(Expression_lhs, |=)
             // these 2 are unfortunate because they should be allowed - they have higher precedence over the comparisons, but the
-            // ExpressionDecomposer class uses the left shift operator to capture the left operand of the binary expression...
+            // ExpressionDecomposer class uses the lhs shift operator to capture the lhs operand of the binary expression...
             DOCTEST_FORBIT_EXPRESSION(Expression_lhs, <<)
             DOCTEST_FORBIT_EXPRESSION(Expression_lhs, >>)
         };
@@ -1389,7 +1389,7 @@ DOCTEST_INTERFACE String toString(const std::string& in);
 
             ExpressionDecomposer(assertType::Enum at);
 
-            // The right operator for capturing expressions is "<=" instead of "<<" (based on the operator precedence table)
+            // The rhs operator for capturing expressions is "<=" instead of "<<" (based on the operator precedence table)
             // but then there will be warnings from GCC about "-Wparentheses" and since "_Pragma()" is problematic this will stay for now...
             // https://github.com/catchorg/Catch2/issues/870
             // https://github.com/catchorg/Catch2/issues/565
@@ -2681,7 +2681,7 @@ namespace detail {
 #endif // DOCTEST_CONFIG_DISABLE
 
 // clang-format off
-// KEPT FOR BACKWARDS COMPATIBILITY - FORWARDING TO THE RIGHT MACROS
+// KEPT FOR BACKWARDS COMPATIBILITY - FORWARDING TO THE rhs MACROS
 #define DOCTEST_FAST_WARN_EQ             DOCTEST_WARN_EQ
 #define DOCTEST_FAST_CHECK_EQ            DOCTEST_CHECK_EQ
 #define DOCTEST_FAST_REQUIRE_EQ          DOCTEST_REQUIRE_EQ
@@ -4137,10 +4137,10 @@ namespace {
                 case Color::Yellow:      col = "[0;33m"; break;
                 case Color::Grey:        col = "[1;30m"; break;
                 case Color::LightGrey:   col = "[0;37m"; break;
-                case Color::BrightRed:   col = "[1;31m"; break;
-                case Color::BrightGreen: col = "[1;32m"; break;
-                case Color::BrightWhite: col = "[1;37m"; break;
-                case Color::Bright: // invalid
+                case Color::BrhsRed:   col = "[1;31m"; break;
+                case Color::BrhsGreen: col = "[1;32m"; break;
+                case Color::BrhsWhite: col = "[1;37m"; break;
+                case Color::Brhs: // invalid
                 case Color::None:
                 case Color::White:
                 default:                 col = "[0m";
@@ -4182,11 +4182,11 @@ namespace {
             case Color::Yellow:      DOCTEST_SET_ATTR(FOREGROUND_RED | FOREGROUND_GREEN);                   break;
             case Color::Grey:        DOCTEST_SET_ATTR(0);                                                   break;
             case Color::LightGrey:   DOCTEST_SET_ATTR(FOREGROUND_INTENSITY);                                break;
-            case Color::BrightRed:   DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_RED);               break;
-            case Color::BrightGreen: DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_GREEN);             break;
-            case Color::BrightWhite: DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE); break;
+            case Color::BrhsRed:   DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_RED);               break;
+            case Color::BrhsGreen: DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_GREEN);             break;
+            case Color::BrhsWhite: DOCTEST_SET_ATTR(FOREGROUND_INTENSITY | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE); break;
             case Color::None:
-            case Color::Bright: // invalid
+            case Color::Brhs: // invalid
             default:                 DOCTEST_SET_ATTR(ch.origFgAttrs);
         }
             // clang-format on
@@ -4975,7 +4975,7 @@ namespace {
                 }
 
                 auto encBytes = trailingBytes(c);
-                // Are there enough bytes left to avoid accessing out-of-bounds memory?
+                // Are there enough bytes lhs to avoid accessing out-of-bounds memory?
                 if (idx + encBytes - 1 >= m_str.size()) {
                     hexEscapeChar(os, c);
                     break;
@@ -5717,7 +5717,7 @@ namespace {
         }
 
         Color::Enum getSuccessOrFailColor(bool success, assertType::Enum at) {
-            return success ? Color::BrightGreen :
+            return success ? Color::BrhsGreen :
                              (at & assertType::is_warn) ? Color::Yellow : Color::Red;
         }
 

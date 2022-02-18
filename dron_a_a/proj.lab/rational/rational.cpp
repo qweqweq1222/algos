@@ -11,48 +11,96 @@
         normalize(*this);
     }
 
-    Rational& Rational::operator +=(const Rational& right) noexcept
+    Rational::Rational(Rational&& rhs) noexcept: numerator(rhs.numerator), denominator(rhs.denominator)
     {
-        this->numerator = this->numerator * right.denominator + right.numerator * this->denominator;
-        this->denominator *= right.denominator;
+        rhs.numerator = 0;
+        rhs.denominator = 1;
+    }
+
+    Rational& Rational::operator = (Rational&& rhs) noexcept
+    {
+        numerator = rhs.numerator;
+        denominator = rhs.denominator;
+
+        rhs.numerator = 0;
+        rhs.denominator = 1;
+
+        return *this;
+    }
+    Rational::Rational(const int num): numerator(num), denominator(1){}
+
+    Rational& Rational::operator +=(const Rational& rhs) noexcept
+    {
+        this->numerator = this->numerator * rhs.denominator + rhs.numerator * this->denominator;
+        this->denominator *= rhs.denominator;
         normalize(*this);
         return *this;
     }
-    Rational& Rational::operator -=(const Rational& right) noexcept
+
+    Rational& Rational::operator -=(const Rational& rhs) noexcept
     {
-        this->numerator = this->numerator * right.denominator - right.numerator * this->denominator;
-        this->denominator *= right.denominator;
+        this->numerator = this->numerator * rhs.denominator - rhs.numerator * this->denominator;
+        this->denominator *= rhs.denominator;
         normalize(*this);
         return *this;
     }
-    Rational& Rational::operator *=(const Rational& right) noexcept
+
+    Rational& Rational::operator *=(const Rational& rhs) noexcept
     {
-        this->numerator *= right.numerator;
-        this->denominator *= right.denominator;
+        this->numerator *= rhs.numerator;
+        this->denominator *= rhs.denominator;
         normalize(*this);
         return *this;
     }
-    Rational& Rational::operator /=(const Rational& right)
+
+    Rational& Rational::operator /=(const Rational& rhs)
     {
-        if(right.numerator == 0)
+        if(rhs.numerator == 0)
             throw std::invalid_argument("dividing by 0.");
         else
         {
-            this->numerator *= right.denominator;
-            this->denominator *= right.numerator;
+            this->numerator *= rhs.denominator;
+            this->denominator *= rhs.numerator;
             sign(*this);
             normalize(*this);
         }
         return *this;
     }
+
     Rational Rational::operator -() noexcept
     {
         return Rational(-numerator,denominator);
     }
 
-    bool Rational::operator == (const Rational& right) const noexcept
+    bool Rational::operator == (const Rational& rhs) const noexcept
     {
-        return (this->numerator == right.numerator && this->denominator == right.denominator);
+        return (this->numerator == rhs.numerator && this->denominator == rhs.denominator);
+    }
+
+    bool Rational::operator < (const Rational& rhs) const noexcept
+    {
+        Rational diff = *this - rhs;
+        return (diff.num() < 0);
+    }
+
+    bool Rational::operator > (const Rational& rhs) const noexcept
+    {
+        return !(*this < rhs);
+    }
+
+    bool Rational::operator <= (const Rational& rhs) const noexcept
+    {
+        return (*this < rhs || *this == rhs);
+    }
+
+    bool Rational::operator >= (const Rational& rhs) const noexcept
+    {
+        return !(*this <= rhs);
+    }
+
+    bool Rational::operator != (const Rational& rhs) const noexcept
+    {
+        return !(*this == rhs);
     }
 
     const int Rational::gcd(const int& num,const int& den)
@@ -66,6 +114,7 @@
         }
         return max;
     }
+
     void Rational::sign(Rational& r)
     {
         if(r.denominator < 0)
@@ -74,6 +123,7 @@
             r.numerator -= 2*numerator;
         }
     }
+
     void Rational::normalize(Rational& r)
     {
         int gcd_ = gcd(r.numerator, r.denominator);
@@ -84,50 +134,31 @@
             gcd_ = gcd(r.numerator, r.denominator);
         }
     }
-bool operator != (const Rational& left, const Rational& right)
-{
-    return !(left == right);
-}
-Rational operator + (const Rational& left, const Rational& right)
-{
-    return Rational(left) += right;
-}
-Rational operator - (const Rational& left, const Rational& right)
-{
-    return Rational(left) -= right;
-}
-Rational operator * (const Rational& left, const Rational& right)
-{
-    return Rational(left) *= right;
-}
-Rational operator / (const Rational& left, const Rational& right)
-{
-    return Rational(left) /= right;
-}
 
-int Rational::getNum() const
+int Rational::num() const
 {
     return numerator;
 }
 
-int Rational::getDen() const
+int Rational::denum() const
 {
     return denominator;
 }
-std::ostream& operator << (std::ostream& out, const Rational& right)
+
+std::ostream& operator << (std::ostream& ostrm, const Rational& r)
 {
-    out << right.getNum() << "/" << right.getDen() << std::endl;
-    return out;
+    ostrm << r.num() << "/" << r.denum() << std::endl;
+    return ostrm;
 }
 
-std::istream& operator >> (std::istream& in, Rational& right)
+std::istream& operator >> (std::istream& istrm, Rational& r)
 {
     std::string ss;
     int first_size = 0;
     int numerator = 0;
     int denominator = 0 ;
     std::cout << "numerator/denominator:";
-    getline(in, ss);
+    getline(istrm, ss);
 
     numerator = std::stoi(ss);
     first_size = std::to_string(numerator).length();
@@ -137,7 +168,7 @@ std::istream& operator >> (std::istream& in, Rational& right)
     if(denominator == 0)
         throw std::invalid_argument("Denominator must not be 0.");
 
-    right = Rational(numerator, denominator);
+    r = Rational(numerator, denominator);
 
-    return in;
+    return istrm;
 }

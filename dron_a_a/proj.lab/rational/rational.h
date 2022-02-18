@@ -6,19 +6,28 @@ class Rational
 public:
     Rational() = default;
     Rational(const Rational& rat) = default;
+    Rational(const int num,const int den);
+    explicit Rational(const int num);
+    Rational(Rational&& rhs) noexcept;
     ~Rational() = default;
-    Rational(const int num,const int den = 1);
 
-    Rational& operator +=(const Rational& right) noexcept;
-    Rational& operator -=(const Rational& right) noexcept;
-    Rational& operator *=(const Rational& right) noexcept;
-    Rational& operator /=(const Rational& right);
+    Rational& operator=(Rational&&) noexcept;
+
+    Rational& operator +=(const Rational& rhs) noexcept;
+    Rational& operator -=(const Rational& rhs) noexcept;
+    Rational& operator *=(const Rational& rhs) noexcept;
+    Rational& operator /=(const Rational& rhs);
     Rational operator -() noexcept;
 
-    int getNum() const;
-    int getDen() const;
+    int num() const;
+    int denum() const;
 
-    bool operator == (const Rational& right) const noexcept;
+    bool operator == (const Rational& rhs) const noexcept;
+    bool operator != (const Rational& rhs) const noexcept;
+    bool operator<(const Rational& rhs) const noexcept;
+    bool operator>(const Rational& rhs) const noexcept;
+    bool operator<=(const Rational& rhs) const noexcept;
+    bool operator>=(const Rational& rhs) const noexcept;
 
 private:
     int numerator = 0;
@@ -30,11 +39,22 @@ private:
 
 };
 
-bool operator != (const Rational& left, const Rational& right);
-Rational operator + (const Rational& left, const Rational& right);
-Rational operator - (const Rational& left, const Rational& right);
-Rational operator * (const Rational& left, const Rational& right);
-Rational operator / (const Rational& left, const Rational& right);
-std::ostream& operator << (std::ostream& out, const Rational& right);
+inline Rational operator + (const Rational& lhs, const Rational& rhs)
+{
+    return Rational(lhs) += rhs;
+}
+inline Rational operator - (const Rational& lhs, const Rational& rhs)
+{
+    return Rational(lhs) -= rhs;
+}
+inline Rational operator * (const Rational& lhs, const Rational& rhs)
+{
+    return Rational(lhs) *= rhs;
+}
+inline Rational operator / (const Rational& lhs, const Rational& rhs)
+{
+    return Rational(lhs) /= rhs;
+}
 
-std::istream& operator >> (std::istream& in, Rational& right);
+std::ostream& operator << (std::ostream& ostrm, const Rational& r);
+std::istream& operator >> (std::istream& istrm, Rational& r);

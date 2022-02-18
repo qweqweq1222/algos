@@ -37,6 +37,10 @@ TEST_SUITE("operators:")
         CHECK (buffer == r_1);
     }
 }
+TEST_CASE("only numerator")
+{
+    REQUIRE( Rational(5) == Rational(5,1));
+}
 TEST_CASE("zero denominator")
 {
     CHECK_THROWS_WITH_AS(Rational(5,0),"Denominator must not be 0.", std::invalid_argument);
