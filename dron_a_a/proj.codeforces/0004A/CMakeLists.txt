@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(004a)
+project(0004A)
 
-add_executable(fb 004A.cpp)
+add_executable(004A 004A.cpp)

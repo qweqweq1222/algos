@@ -2,4 +2,4 @@ cmake_minimum_required(VERSION 3.10)
 
 project(1231C)
 
-add_executable(fb 1231C.cpp)
+add_executable(1231 1231C.cpp)
