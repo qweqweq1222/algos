@@ -26,5 +26,5 @@ private:
     int depth;
 };
 
+std::istream& operator >> (std::istream& istrm , M3i& r) noexcept;
 std::ostream& operator << (std::ostream& ostrm, const M3i& r) noexcept;
-

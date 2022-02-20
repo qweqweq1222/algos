@@ -46,6 +46,28 @@ const int M3i::get_depth() const noexcept
     return (!ten[0][0].empty()) ? (ten[0][0]).size() : 0;
 }
 
+std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
+{
+    std::string str;
+    int size = 0;
+    for (int i = 0; i < r.get_rows(); ++i)
+    {
+        for (int j = 0; j < r.get_cols(); ++j)
+        {
+            std::cout << "[" << i << j <<  "] number____number " << r.get_depth() << " times ";
+            std::getline(istrm, str);
+            for (int k = 0; k < r.get_depth(); ++k)
+            {
+                (r.get_ten())[i][j][k] = std::stoi(str);
+                size = std::to_string((r.get_ten())[i][j][k]).length();
+                if( k != r.get_depth() - 1)
+                    str.erase(str.begin(), str.begin() + size + 1);
+            }
+            std::cout << std::endl;
+        }
+    }
+
+}
 std::ostream& operator << (std::ostream& ostrm, const M3i& r) noexcept {
     ostrm << "[" << std::endl;
     for (int i = 0; i < r.get_rows(); ++i) {
