@@ -1,10 +1,38 @@
 #include<vector>
 #include<iostream>
 #include<exception>
+#include<string>
+#include<algorithm>
 #include "M3i.h"
 
-M3i::M3i(int rows_, int cols_, int depth_) noexcept: rows(rows_), cols(cols_), depth(depth_),
-                                                     ten(std::vector <std::vector <std::vector <int>>>(rows_, std::vector< std::vector<int> >(cols_, std::vector <int>(depth_, 0)))) {}
+M3i::M3i(const M3i& tensor): rows(tensor.rows), cols(tensor.cols), depth(tensor.depth)
+{
+    ten = new int** [rows];
+    for(int i =0; i < rows; ++i)
+    {
+        ten[i] = new int* [cols];
+        for (int j = 0; j < cols; ++j)
+        {
+            ten[i][j] = new int[depth];
+            for (int k =0; k < depth; ++k)
+                ten[i][j][k] = tensor.ten[i][j][k];
+        }
+    }
+}
+M3i::M3i(int rows_, int cols_, int depth_) noexcept: rows(rows_), cols(cols_), depth(depth_)
+{
+    ten = new int** [rows];
+    for(int i =0; i < rows; ++i)
+    {
+        ten[i] = new int* [cols];
+        for (int j = 0; j < cols; ++j)
+        {
+            ten[i][j] = new int[depth];
+            for (int k =0; k < depth; ++k)
+                ten[i][j][k] = 0;
+        }
+    }
+}
 
 int& M3i::operator ()(int row_, int column_, int depth_)
 {
@@ -12,38 +40,57 @@ int& M3i::operator ()(int row_, int column_, int depth_)
         throw std::out_of_range("index is out of range");
     return ten[row_-1][column_-1][depth_-1];
 }
-void M3i::resize(int rows_, int cols_, int depth_) noexcept
+void M3i::resize (int rows_, int cols_, int depth_) noexcept
 {
-    ten.resize(rows_);
-    rows = rows_;
-    cols = cols_;
-    depth = depth_;
-    for(int i =0;i<cols_;++i)
+    int*** buffer = ten;
+    ten = new int** [rows_];
+
+    for(int i = 0; i < rows_; ++i)
     {
-        ten[i].resize(cols_);
-        for(int j =0; j < depth_; j++)
-            ten[i][j].resize((depth_), 0);
+        ten[i] = new int* [cols_];
+        for (int j = 0; j < cols_; ++j)
+        {
+            ten[i][j] = new int[depth_];
+            for (int k = 0; k < depth_; ++k)
+                ten[i][j][k] = 0;
+        }
     }
+
+    for(int i = 0; i < std::min(rows_, rows); ++i)
+        for (int j = 0; j < std::min(cols_, cols); ++j)
+            for (int k = 0; k < std::min(depth_, depth); ++k)
+                ten[i][j][k] = buffer[i][j][k];
+
+    for(int i=0; i < rows; ++i)
+    {
+        for (int j = 0; j < cols; ++j)
+        {
+            delete [] buffer[i][j];
+        }
+        delete[] buffer[i];
+    }
+    delete [] buffer;
+
+    cols = cols_;
+    rows = rows_;
+    depth = depth_;
 }
 
-std::vector <std::vector <std::vector <int>>> M3i::get_ten() const noexcept
+int *** M3i::get_ten() const noexcept
 {
     return ten;
 }
-
 const int M3i::get_rows() const noexcept
 {
-    return (!ten.empty()) ? ten.size() : 0;
+    return rows;
 }
-
 const int M3i::get_cols() const noexcept
 {
-    return (!ten[0].empty()) ? (ten[0]).size() : 0;
+    return cols;
 }
-
 const int M3i::get_depth() const noexcept
 {
-    return (!ten[0][0].empty()) ? (ten[0][0]).size() : 0;
+    return depth;
 }
 
 std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
