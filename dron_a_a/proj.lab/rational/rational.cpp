@@ -165,7 +165,7 @@ std::istream& operator >> (std::istream& istrm, Rational& r)
     ss.erase(ss.begin(), ss.begin() + first_size + 1);
     denominator = std::stoi(ss);
 
-    if(denominator == 0)
+    if(denominator <= 0 )
         throw std::invalid_argument("Denominator must not be 0.");
 
     r = Rational(numerator, denominator);

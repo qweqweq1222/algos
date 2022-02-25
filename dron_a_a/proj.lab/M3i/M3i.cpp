@@ -5,109 +5,110 @@
 #include<algorithm>
 #include "M3i.h"
 
-M3i::M3i(const M3i& tensor): rows(tensor.rows), cols(tensor.cols), depth(tensor.depth)
+M3i::M3i(int rows_, int cols_, int depth_) noexcept: ten(shared_ptr(new int[rows_*cols_*depth_])), rows(rows_), cols(cols_), depth(depth_)
 {
-    ten = new int** [rows];
-    for(int i =0; i < rows; ++i)
-    {
-        ten[i] = new int* [cols];
-        for (int j = 0; j < cols; ++j)
-        {
-            ten[i][j] = new int[depth];
-            for (int k =0; k < depth; ++k)
-                ten[i][j][k] = tensor.ten[i][j][k];
-        }
-    }
-}
-M3i::M3i(int rows_, int cols_, int depth_) noexcept: rows(rows_), cols(cols_), depth(depth_)
-{
-    ten = new int** [rows];
-    for(int i =0; i < rows; ++i)
-    {
-        ten[i] = new int* [cols];
-        for (int j = 0; j < cols; ++j)
-        {
-            ten[i][j] = new int[depth];
-            for (int k =0; k < depth; ++k)
-                ten[i][j][k] = 0;
-        }
-    }
+    for(int i = 0; i < rows_*cols_*depth_; ++i)
+        ten.GetGen()[i] = 0;
 }
 
-int& M3i::operator ()(int row_, int column_, int depth_)
+M3i::M3i(const std::initializer_list<int> &list) : ten(shared_ptr(new int [list.size()])), rows(1), cols(list.size()), depth(1)
+{
+    int count = 0;
+    for(auto &element : list)
+    {
+        ten.GetGen()[count] = element;
+        ++count;
+    }
+}
+M3i& M3i::operator = (const M3i& object)
+{
+    ten = object.ten;
+    rows = object.rows;
+    cols = object.cols;
+    depth = object.depth;
+    return *this;
+}
+
+M3i M3i::clone() const
+{
+    int *curr = ten.GetGen();
+    int *curr_ = new int [rows*cols*depth];
+    for(int i = 0; i <  rows*cols*depth; ++i)
+        curr_[i] = curr[i];
+
+    M3i cloned = M3i();
+
+    cloned.ten = shared_ptr(curr_);
+    cloned.depth = depth;
+    cloned.cols = cols;
+    cloned.rows = rows;
+
+    return cloned;
+}
+
+int& M3i::at(const int row_, const int column_, const int depth_)
 {
     if( row_ > rows || column_ > cols || depth_ > depth)
         throw std::out_of_range("index is out of range");
-    return ten[row_-1][column_-1][depth_-1];
+    return ten.GetGen()[depth*cols*row_ + depth*column_ + depth_];
 }
-void M3i::resize (int rows_, int cols_, int depth_) noexcept
+
+int M3i::at(const int row_, const int column_, const int depth_) const
 {
-    int*** buffer = ten;
-    ten = new int** [rows_];
+    if( row_ > rows || column_ > cols || depth_ > depth)
+        throw std::out_of_range("index is out of range");
+    int a = (ten.GetGen())[depth*cols*row_ + depth*column_ + depth_];
+    return a;
+}
 
-    for(int i = 0; i < rows_; ++i)
-    {
-        ten[i] = new int* [cols_];
-        for (int j = 0; j < cols_; ++j)
-        {
-            ten[i][j] = new int[depth_];
-            for (int k = 0; k < depth_; ++k)
-                ten[i][j][k] = 0;
-        }
-    }
-
+void M3i::resize (int rows_, int cols_, int depth_)
+{
+    int* prev = ten.GetGen();
+    int* new_data = new int [rows_ * cols_ * depth_];
+    for(int i = 0; i < rows_*cols_*depth_; ++i)
+        new_data[i] = 0;
     for(int i = 0; i < std::min(rows_, rows); ++i)
-        for (int j = 0; j < std::min(cols_, cols); ++j)
-            for (int k = 0; k < std::min(depth_, depth); ++k)
-                ten[i][j][k] = buffer[i][j][k];
+        for(int j = 0; j < std::min(cols_, cols); ++j)
+            for(int k = 0; k < std::min(depth_, depth); ++k)
+                new_data[i * depth_ * cols_ + j * depth_ + k] = prev[i * depth_ * cols_ + j * depth_ + k];
 
-    for(int i=0; i < rows; ++i)
-    {
-        for (int j = 0; j < cols; ++j)
-        {
-            delete [] buffer[i][j];
-        }
-        delete[] buffer[i];
-    }
-    delete [] buffer;
-
-    cols = cols_;
+    ten.GetTruck()->ptr_ = new_data;
+    delete [] prev;
     rows = rows_;
+    cols = cols_;
     depth = depth_;
 }
 
-int *** M3i::get_ten() const noexcept
+int M3i::size(const int dim)
 {
-    return ten;
-}
-const int M3i::get_rows() const noexcept
-{
-    return rows;
-}
-const int M3i::get_cols() const noexcept
-{
-    return cols;
-}
-const int M3i::get_depth() const noexcept
-{
-    return depth;
+    if(dim >= 3)
+        throw std::out_of_range("index is out of range");
+    else
+    {
+        if(dim == 0)
+            return rows;
+        else if(dim == 1)
+            return cols;
+        else
+            return depth;
+    }
 }
 
 std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
 {
     std::string str;
     int size = 0;
-    for (int i = 0; i < r.get_rows(); ++i)
+    for (int i = 0; i < r.size(0); ++i)
     {
-        for (int j = 0; j < r.get_cols(); ++j)
+        for (int j = 0; j < r.size(1); ++j)
         {
-            std::cout << "[" << i << j <<  "] number____number " << r.get_depth() << " times ";
+            std::cout << "[" << i << j <<  "] number____number " << r.size(2) << " times ";
             std::getline(istrm, str);
-            for (int k = 0; k < r.get_depth(); ++k)
+            for (int k = 0; k < r.size(2); ++k)
             {
-                (r.get_ten())[i][j][k] = std::stoi(str);
-                size = std::to_string((r.get_ten())[i][j][k]).length();
-                if( k != r.get_depth() - 1)
+                r.at(i,j,k) = std::stoi(str);
+                size = std::to_string( r.at(i,j,k)).length();
+                if( k != r.size(2) - 1)
                     str.erase(str.begin(), str.begin() + size + 1);
             }
             std::cout << std::endl;
@@ -115,23 +116,26 @@ std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
     }
 
 }
-std::ostream& operator << (std::ostream& ostrm, const M3i& r) noexcept {
+std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept
+{
     ostrm << "[" << std::endl;
-    for (int i = 0; i < r.get_rows(); ++i) {
+    for (int i = 0; i < r.size(0); ++i)
+    {
         ostrm << "[ ";
-        for (int j = 0; j < r.get_cols(); ++j) {
+        for (int j = 0; j < r.size(1); ++j)
+        {
             ostrm << "[";
-            for (int k = 0; k < r.get_depth(); ++k)
-                if (k != r.get_depth() - 1)
-                    ostrm << r.get_ten()[i][j][k] << ",";
+            for (int k = 0; k < r.size(2); ++k)
+            {
+                if (k != r.size(2) - 1)
+                    ostrm << r.at(i, j, k) << ",";
                 else
-                    ostrm << r.get_ten()[i][j][k];
-            if (j != r.get_cols() - 1)
-                ostrm << "], ";
-            else
-                ostrm << "] ]," << std::endl;
+                    ostrm << r.at(i, j, k);
+            }
+            ostrm << "], ";
         }
+        ostrm << " ]" << std::endl;
     }
-    ostrm << "]";
+    ostrm << "]" << std::endl;
     return ostrm;
 }
