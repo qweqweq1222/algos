@@ -1,3 +1,3 @@
-add_subdirectory(004a)
-add_subdirectory(1231C)
-add_subdirectory(520_B)
+add_subdirectory(0004a)
+add_subdirectory(1231c)
+add_subdirectory(0520b)
