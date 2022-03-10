@@ -1,0 +1,48 @@
+/*
+ * andrey dron
+ * 3-d tensor implementation
+ * */
+
+#ifndef RATIONAL_RATIONAL_H_20220303
+#define RATIONAL_RATIONAL_H_20220303
+#include<iosfwd>
+#include <initializer_list>
+
+class M3i
+{
+public:
+    M3i();
+    M3i(const M3i& tensor);
+    M3i(int rows_, int cols_, int depth_ = 1) noexcept;
+    M3i(const std::initializer_list<int> &list);
+    M3i(M3i&&) noexcept;
+
+    ~M3i();
+
+    M3i& operator = (const M3i&);
+    M3i& operator = (M3i&& );
+
+    M3i clone() const;
+    int size(const int dim) const;
+    int& at(const int row_, const int column_, const int depth_);
+    int at(const int row_, const int col, const int depth_) const;
+    void resize(int rows_, int cols_, int depth_);
+    void fill(const int val);
+
+
+private:
+    struct shared_ptr
+    {
+        int* data = nullptr;
+        int counter = 0;
+        int shape[3] = {0,0,0};
+    };
+
+    shared_ptr* ptr = nullptr;
+};
+
+std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept;
+std::istream& operator >> (std::istream& istrm , M3i& r) noexcept;
+
+#endif
+

@@ -57,38 +57,38 @@ include prj.lab/m3i/CMakeFiles/m3i.dir/progress.make
 # Include the compile flags for this target's objects.
 include prj.lab/m3i/CMakeFiles/m3i.dir/flags.make
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o: prj.lab/m3i/CMakeFiles/m3i.dir/flags.make
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o: ../prj.lab/m3i/M3i.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o"
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/m3i.dir/M3i.cpp.o -c /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.cpp
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o: prj.lab/m3i/CMakeFiles/m3i.dir/flags.make
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o: ../prj.lab/m3i/m3i.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o"
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/m3i.dir/m3i.cpp.o -c /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i.cpp
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/m3i.dir/M3i.cpp.i"
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.cpp > CMakeFiles/m3i.dir/M3i.cpp.i
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/m3i.dir/m3i.cpp.i"
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i.cpp > CMakeFiles/m3i.dir/m3i.cpp.i
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/m3i.dir/M3i.cpp.s"
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.cpp -o CMakeFiles/m3i.dir/M3i.cpp.s
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/m3i.dir/m3i.cpp.s"
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i.cpp -o CMakeFiles/m3i.dir/m3i.cpp.s
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.requires:
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.requires:
 
-.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.requires
+.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.requires
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.provides: prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.requires
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.provides.build
-.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.provides
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.provides: prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.requires
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.provides.build
+.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.provides
 
-prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.provides.build: prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o
+prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.provides.build: prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o
 
 
 # Object files for target m3i
 m3i_OBJECTS = \
-"CMakeFiles/m3i.dir/M3i.cpp.o"
+"CMakeFiles/m3i.dir/m3i.cpp.o"
 
 # External object files for target m3i
 m3i_EXTERNAL_OBJECTS =
 
-prj.lab/m3i/libm3i.a: prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o
+prj.lab/m3i/libm3i.a: prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o
 prj.lab/m3i/libm3i.a: prj.lab/m3i/CMakeFiles/m3i.dir/build.make
 prj.lab/m3i/libm3i.a: prj.lab/m3i/CMakeFiles/m3i.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library libm3i.a"
@@ -100,7 +100,7 @@ prj.lab/m3i/CMakeFiles/m3i.dir/build: prj.lab/m3i/libm3i.a
 
 .PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/build
 
-prj.lab/m3i/CMakeFiles/m3i.dir/requires: prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o.requires
+prj.lab/m3i/CMakeFiles/m3i.dir/requires: prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o.requires
 
 .PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/requires
 

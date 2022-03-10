@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+../prj.lab/rational/rational.h
+iosfwd
+-
+algorithm
+-
+exception
+-
+
 /home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/rational/rational.cpp
 iostream
 -
@@ -13,16 +21,10 @@ algorithm
 -
 exception
 -
-rational.h
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/rational/rational.h
+rational/rational.h
+-
 sstream
 -
-
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/rational/rational.h
-iostream
--
-algorithm
--
-exception
+string
 -
 

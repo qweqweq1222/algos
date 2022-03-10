@@ -111,6 +111,32 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named m3i
+
+# Build rule for target.
+m3i: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 m3i
+.PHONY : m3i
+
+# fast build rule for target.
+m3i/fast:
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/build
+.PHONY : m3i/fast
+
+#=============================================================================
+# Target rules for targets named test_m3i
+
+# Build rule for target.
+test_m3i: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_m3i
+.PHONY : test_m3i
+
+# fast build rule for target.
+test_m3i/fast:
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/build
+.PHONY : test_m3i/fast
+
+#=============================================================================
 # Target rules for targets named rational
 
 # Build rule for target.
@@ -136,32 +162,6 @@ test_rational/fast:
 	$(MAKE) -f prj.lab/rational/CMakeFiles/test_rational.dir/build.make prj.lab/rational/CMakeFiles/test_rational.dir/build
 .PHONY : test_rational/fast
 
-#=============================================================================
-# Target rules for targets named m3i
-
-# Build rule for target.
-m3i: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 m3i
-.PHONY : m3i
-
-# fast build rule for target.
-m3i/fast:
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/build
-.PHONY : m3i/fast
-
-#=============================================================================
-# Target rules for targets named test_M3i
-
-# Build rule for target.
-test_M3i: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_M3i
-.PHONY : test_M3i
-
-# fast build rule for target.
-test_M3i/fast:
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/build
-.PHONY : test_M3i/fast
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -170,10 +170,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... m3i"
+	@echo "... test_m3i"
 	@echo "... rational"
 	@echo "... test_rational"
-	@echo "... m3i"
-	@echo "... test_M3i"
 .PHONY : help
 
 

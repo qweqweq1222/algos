@@ -1,4 +1,6 @@
-#include<iostream>
+#ifndef  RATIONAL_RATIONAL_H_20220303
+#define RATIONAL_RATIONAL_H_20220303
+#include<iosfwd>
 #include<algorithm>
 #include<exception>
 class Rational
@@ -12,6 +14,7 @@ public:
     ~Rational() = default;
 
     Rational& operator=(Rational&&) noexcept;
+    Rational& operator=(const Rational&) = default;
 
     Rational& operator +=(const Rational& rhs) noexcept;
     Rational& operator -=(const Rational& rhs) noexcept;
@@ -28,6 +31,9 @@ public:
     bool operator>(const Rational& rhs) const noexcept;
     bool operator<=(const Rational& rhs) const noexcept;
     bool operator>=(const Rational& rhs) const noexcept;
+
+    std::istream& read_from(std::istream& istrm);
+    std::ostream& write_to(std::ostream& ostrm) const;
 
 private:
     int numerator = 0;
@@ -58,3 +64,4 @@ inline Rational operator / (const Rational& lhs, const Rational& rhs)
 
 std::ostream& operator << (std::ostream& ostrm, const Rational& r);
 std::istream& operator >> (std::istream& istrm, Rational& r);
+#endif

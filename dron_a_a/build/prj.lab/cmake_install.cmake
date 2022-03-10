@@ -39,8 +39,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/rational/cmake_install.cmake")
   include("/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i/cmake_install.cmake")
+  include("/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/rational/cmake_install.cmake")
 
 endif()
 

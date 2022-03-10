@@ -6,7 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.cpp
+../prj.lab/m3i/m3i.h
+iosfwd
+-
+initializer_list
+-
+
+/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i.cpp
 vector
 -
 iostream
@@ -17,16 +23,6 @@ string
 -
 algorithm
 -
-M3i.h
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.h
-
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/M3i.h
-vector
--
-iostream
--
-exception
--
-initializer_list
+m3i/m3i.h
 -
 

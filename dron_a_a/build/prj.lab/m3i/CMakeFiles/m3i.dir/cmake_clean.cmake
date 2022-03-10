@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/m3i.dir/M3i.cpp.o"
+  "CMakeFiles/m3i.dir/m3i.cpp.o"
   "libm3i.pdb"
   "libm3i.a"
 )

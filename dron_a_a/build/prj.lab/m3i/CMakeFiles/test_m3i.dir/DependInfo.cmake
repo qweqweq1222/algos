@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/test.cpp" "/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i/CMakeFiles/test_M3i.dir/test.cpp.o"
+  "/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i_test.cpp" "/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/prj.lab/m3i/CMakeFiles/test_m3i.dir/m3i_test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

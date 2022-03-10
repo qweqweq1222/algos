@@ -63,22 +63,116 @@ CMAKE_BINARY_DIR = /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build
 # Directory level rules for directory prj.lab
 
 # Convenience name for "all" pass in the directory.
-prj.lab/all: prj.lab/rational/all
 prj.lab/all: prj.lab/m3i/all
+prj.lab/all: prj.lab/rational/all
 
 .PHONY : prj.lab/all
 
 # Convenience name for "clean" pass in the directory.
-prj.lab/clean: prj.lab/rational/clean
 prj.lab/clean: prj.lab/m3i/clean
+prj.lab/clean: prj.lab/rational/clean
 
 .PHONY : prj.lab/clean
 
 # Convenience name for "preinstall" pass in the directory.
-prj.lab/preinstall: prj.lab/rational/preinstall
 prj.lab/preinstall: prj.lab/m3i/preinstall
+prj.lab/preinstall: prj.lab/rational/preinstall
 
 .PHONY : prj.lab/preinstall
+
+#=============================================================================
+# Directory level rules for directory prj.lab/m3i
+
+# Convenience name for "all" pass in the directory.
+prj.lab/m3i/all: prj.lab/m3i/CMakeFiles/m3i.dir/all
+prj.lab/m3i/all: prj.lab/m3i/CMakeFiles/test_m3i.dir/all
+
+.PHONY : prj.lab/m3i/all
+
+# Convenience name for "clean" pass in the directory.
+prj.lab/m3i/clean: prj.lab/m3i/CMakeFiles/m3i.dir/clean
+prj.lab/m3i/clean: prj.lab/m3i/CMakeFiles/test_m3i.dir/clean
+
+.PHONY : prj.lab/m3i/clean
+
+# Convenience name for "preinstall" pass in the directory.
+prj.lab/m3i/preinstall:
+
+.PHONY : prj.lab/m3i/preinstall
+
+#=============================================================================
+# Target rules for target prj.lab/m3i/CMakeFiles/m3i.dir
+
+# All Build rule for target.
+prj.lab/m3i/CMakeFiles/m3i.dir/all:
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/depend
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=1,2 "Built target m3i"
+.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/all
+
+# Include target in all.
+all: prj.lab/m3i/CMakeFiles/m3i.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+prj.lab/m3i/CMakeFiles/m3i.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/m3i.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 0
+.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/rule
+
+# Convenience name for target.
+m3i: prj.lab/m3i/CMakeFiles/m3i.dir/rule
+
+.PHONY : m3i
+
+# clean rule for target.
+prj.lab/m3i/CMakeFiles/m3i.dir/clean:
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/clean
+.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/clean
+
+# clean rule for target.
+clean: prj.lab/m3i/CMakeFiles/m3i.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target prj.lab/m3i/CMakeFiles/test_m3i.dir
+
+# All Build rule for target.
+prj.lab/m3i/CMakeFiles/test_m3i.dir/all: prj.lab/m3i/CMakeFiles/m3i.dir/all
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/depend
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=5,6 "Built target test_m3i"
+.PHONY : prj.lab/m3i/CMakeFiles/test_m3i.dir/all
+
+# Include target in all.
+all: prj.lab/m3i/CMakeFiles/test_m3i.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+prj.lab/m3i/CMakeFiles/test_m3i.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 4
+	$(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/test_m3i.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 0
+.PHONY : prj.lab/m3i/CMakeFiles/test_m3i.dir/rule
+
+# Convenience name for target.
+test_m3i: prj.lab/m3i/CMakeFiles/test_m3i.dir/rule
+
+.PHONY : test_m3i
+
+# clean rule for target.
+prj.lab/m3i/CMakeFiles/test_m3i.dir/clean:
+	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/clean
+.PHONY : prj.lab/m3i/CMakeFiles/test_m3i.dir/clean
+
+# clean rule for target.
+clean: prj.lab/m3i/CMakeFiles/test_m3i.dir/clean
+
+.PHONY : clean
 
 #=============================================================================
 # Directory level rules for directory prj.lab/rational
@@ -171,100 +265,6 @@ prj.lab/rational/CMakeFiles/test_rational.dir/clean:
 
 # clean rule for target.
 clean: prj.lab/rational/CMakeFiles/test_rational.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Directory level rules for directory prj.lab/m3i
-
-# Convenience name for "all" pass in the directory.
-prj.lab/m3i/all: prj.lab/m3i/CMakeFiles/m3i.dir/all
-prj.lab/m3i/all: prj.lab/m3i/CMakeFiles/test_M3i.dir/all
-
-.PHONY : prj.lab/m3i/all
-
-# Convenience name for "clean" pass in the directory.
-prj.lab/m3i/clean: prj.lab/m3i/CMakeFiles/m3i.dir/clean
-prj.lab/m3i/clean: prj.lab/m3i/CMakeFiles/test_M3i.dir/clean
-
-.PHONY : prj.lab/m3i/clean
-
-# Convenience name for "preinstall" pass in the directory.
-prj.lab/m3i/preinstall:
-
-.PHONY : prj.lab/m3i/preinstall
-
-#=============================================================================
-# Target rules for target prj.lab/m3i/CMakeFiles/m3i.dir
-
-# All Build rule for target.
-prj.lab/m3i/CMakeFiles/m3i.dir/all:
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/depend
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=1,2 "Built target m3i"
-.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/all
-
-# Include target in all.
-all: prj.lab/m3i/CMakeFiles/m3i.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-prj.lab/m3i/CMakeFiles/m3i.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/m3i.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 0
-.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/rule
-
-# Convenience name for target.
-m3i: prj.lab/m3i/CMakeFiles/m3i.dir/rule
-
-.PHONY : m3i
-
-# clean rule for target.
-prj.lab/m3i/CMakeFiles/m3i.dir/clean:
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/clean
-.PHONY : prj.lab/m3i/CMakeFiles/m3i.dir/clean
-
-# clean rule for target.
-clean: prj.lab/m3i/CMakeFiles/m3i.dir/clean
-
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target prj.lab/m3i/CMakeFiles/test_M3i.dir
-
-# All Build rule for target.
-prj.lab/m3i/CMakeFiles/test_M3i.dir/all: prj.lab/m3i/CMakeFiles/m3i.dir/all
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/depend
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles --progress-num=5,6 "Built target test_M3i"
-.PHONY : prj.lab/m3i/CMakeFiles/test_M3i.dir/all
-
-# Include target in all.
-all: prj.lab/m3i/CMakeFiles/test_M3i.dir/all
-
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-prj.lab/m3i/CMakeFiles/test_M3i.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 4
-	$(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/test_M3i.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build/CMakeFiles 0
-.PHONY : prj.lab/m3i/CMakeFiles/test_M3i.dir/rule
-
-# Convenience name for target.
-test_M3i: prj.lab/m3i/CMakeFiles/test_M3i.dir/rule
-
-.PHONY : test_M3i
-
-# clean rule for target.
-prj.lab/m3i/CMakeFiles/test_M3i.dir/clean:
-	$(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/clean
-.PHONY : prj.lab/m3i/CMakeFiles/test_M3i.dir/clean
-
-# clean rule for target.
-clean: prj.lab/m3i/CMakeFiles/test_M3i.dir/clean
 
 .PHONY : clean
 

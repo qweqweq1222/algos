@@ -90,21 +90,19 @@ sys/time.h
 unistd.h
 -
 
-../prj.lab/rational/rational.h
+../prj.lab/m3i/m3i.h
 iosfwd
 -
-algorithm
--
-exception
+initializer_list
 -
 
-/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/rational/test.cpp
+/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i_test.cpp
+iostream
+-
+string
+-
 doctest/doctest.h
 -
-rational/rational.h
--
-sstream
--
-iosfwd
+m3i/m3i.h
 -
 

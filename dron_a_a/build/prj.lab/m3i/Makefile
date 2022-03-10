@@ -126,73 +126,73 @@ m3i/fast:
 .PHONY : m3i/fast
 
 # Convenience name for target.
-prj.lab/m3i/CMakeFiles/test_M3i.dir/rule:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/test_M3i.dir/rule
-.PHONY : prj.lab/m3i/CMakeFiles/test_M3i.dir/rule
+prj.lab/m3i/CMakeFiles/test_m3i.dir/rule:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f CMakeFiles/Makefile2 prj.lab/m3i/CMakeFiles/test_m3i.dir/rule
+.PHONY : prj.lab/m3i/CMakeFiles/test_m3i.dir/rule
 
 # Convenience name for target.
-test_M3i: prj.lab/m3i/CMakeFiles/test_M3i.dir/rule
+test_m3i: prj.lab/m3i/CMakeFiles/test_m3i.dir/rule
 
-.PHONY : test_M3i
+.PHONY : test_m3i
 
 # fast build rule for target.
-test_M3i/fast:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/build
-.PHONY : test_M3i/fast
+test_m3i/fast:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/build
+.PHONY : test_m3i/fast
 
-M3i.o: M3i.cpp.o
+m3i.o: m3i.cpp.o
 
-.PHONY : M3i.o
-
-# target to build an object file
-M3i.cpp.o:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.o
-.PHONY : M3i.cpp.o
-
-M3i.i: M3i.cpp.i
-
-.PHONY : M3i.i
-
-# target to preprocess a source file
-M3i.cpp.i:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.i
-.PHONY : M3i.cpp.i
-
-M3i.s: M3i.cpp.s
-
-.PHONY : M3i.s
-
-# target to generate assembly for a file
-M3i.cpp.s:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/M3i.cpp.s
-.PHONY : M3i.cpp.s
-
-test.o: test.cpp.o
-
-.PHONY : test.o
+.PHONY : m3i.o
 
 # target to build an object file
-test.cpp.o:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/test.cpp.o
-.PHONY : test.cpp.o
+m3i.cpp.o:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.o
+.PHONY : m3i.cpp.o
 
-test.i: test.cpp.i
+m3i.i: m3i.cpp.i
 
-.PHONY : test.i
+.PHONY : m3i.i
 
 # target to preprocess a source file
-test.cpp.i:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/test.cpp.i
-.PHONY : test.cpp.i
+m3i.cpp.i:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.i
+.PHONY : m3i.cpp.i
 
-test.s: test.cpp.s
+m3i.s: m3i.cpp.s
 
-.PHONY : test.s
+.PHONY : m3i.s
 
 # target to generate assembly for a file
-test.cpp.s:
-	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_M3i.dir/build.make prj.lab/m3i/CMakeFiles/test_M3i.dir/test.cpp.s
-.PHONY : test.cpp.s
+m3i.cpp.s:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/m3i.dir/build.make prj.lab/m3i/CMakeFiles/m3i.dir/m3i.cpp.s
+.PHONY : m3i.cpp.s
+
+m3i_test.o: m3i_test.cpp.o
+
+.PHONY : m3i_test.o
+
+# target to build an object file
+m3i_test.cpp.o:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/m3i_test.cpp.o
+.PHONY : m3i_test.cpp.o
+
+m3i_test.i: m3i_test.cpp.i
+
+.PHONY : m3i_test.i
+
+# target to preprocess a source file
+m3i_test.cpp.i:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/m3i_test.cpp.i
+.PHONY : m3i_test.cpp.i
+
+m3i_test.s: m3i_test.cpp.s
+
+.PHONY : m3i_test.s
+
+# target to generate assembly for a file
+m3i_test.cpp.s:
+	cd /home/anreydron/CLionProjects/520_B/algos/dron_a_a/build && $(MAKE) -f prj.lab/m3i/CMakeFiles/test_m3i.dir/build.make prj.lab/m3i/CMakeFiles/test_m3i.dir/m3i_test.cpp.s
+.PHONY : m3i_test.cpp.s
 
 # Help Target
 help:
@@ -203,13 +203,13 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... m3i"
-	@echo "... test_M3i"
-	@echo "... M3i.o"
-	@echo "... M3i.i"
-	@echo "... M3i.s"
-	@echo "... test.o"
-	@echo "... test.i"
-	@echo "... test.s"
+	@echo "... test_m3i"
+	@echo "... m3i.o"
+	@echo "... m3i.i"
+	@echo "... m3i.s"
+	@echo "... m3i_test.o"
+	@echo "... m3i_test.i"
+	@echo "... m3i_test.s"
 .PHONY : help
 
 
