@@ -6,6 +6,8 @@
 #ifndef RATIONAL_RATIONAL_H_20220303
 #define RATIONAL_RATIONAL_H_20220303
 #include<iosfwd>
+#include <mutex>
+#include <atomic>
 #include <initializer_list>
 
 class M3i
@@ -33,9 +35,13 @@ public:
 private:
     struct shared_ptr
     {
+        shared_ptr(int* _data, const int col, const int row, const int depth, const int counter_);
+
         int* data = nullptr;
-        int counter = 0;
         int shape[3] = {0,0,0};
+        std::atomic<int> counter{0};
+
+        std::recursive_mutex mtx;
     };
 
     shared_ptr* ptr = nullptr;

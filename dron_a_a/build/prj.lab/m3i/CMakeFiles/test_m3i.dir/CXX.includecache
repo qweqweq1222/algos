@@ -93,6 +93,10 @@ unistd.h
 ../prj.lab/m3i/m3i.h
 iosfwd
 -
+mutex
+-
+atomic
+-
 initializer_list
 -
 

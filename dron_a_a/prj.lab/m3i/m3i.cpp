@@ -5,11 +5,14 @@
 #include<algorithm>
 #include <m3i/m3i.h>
 
-M3i::M3i() :
-        ptr(new shared_ptr{nullptr, 1,  {0, 0, 0},}){}
+M3i::shared_ptr::shared_ptr(int* data_, const int cols, const int rows, const int depth, const int counter_) : data(data_), shape{cols,rows,depth}, counter(counter_){}
 
-M3i::M3i(int rows_, int cols_, int depth_) noexcept: ptr(new shared_ptr{new int[rows_*cols_*depth_], 1, {rows_,cols_,depth_} })
+M3i::M3i() : ptr(new shared_ptr(nullptr, 0, 0, 0, 1)) {}
+
+M3i::M3i(int rows_, int cols_, int depth_) noexcept: ptr(new shared_ptr(new int[rows_*cols_*depth_], rows_,cols_,depth_, 1))
 {
+    if(rows_ <=0 || cols_ <=0 || depth_ <=0 )
+        throw std::invalid_argument("rows_ <=0 || cols_ <=0 || depth_ <= 0");
     fill(0);
 }
 
@@ -25,7 +28,7 @@ M3i::M3i(M3i&& other) noexcept
     other.ptr = nullptr;
 }
 
-M3i::M3i(const std::initializer_list<int> &list): ptr(new shared_ptr{new int [list.size()], 1, {1, int(list.size()),1}})
+M3i::M3i(const std::initializer_list<int> &list): ptr(new shared_ptr{ new int [list.size()], 1, int(list.size()),1, 1})
 {
     int i = 0;
     for(auto &element : list)
@@ -73,35 +76,44 @@ M3i& M3i::operator = (M3i&& other)
 
 M3i M3i::clone() const
 {
-    int *curr = ptr->data;
-    int *curr_ = new int [ptr->shape[0] * ptr->shape[1] * ptr->shape[2]];
-    for(int i = 0; i <  ptr->shape[0] * ptr->shape[1] * ptr->shape[2]; ++i)
-        curr_[i] = curr[i];
+    std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
 
-    M3i cloned = M3i();
-    for (int i = 0; i < 3; ++i)
-        cloned.ptr->shape[i] = ptr->shape[i];
+    M3i cloned(ptr->shape[0], ptr->shape[1], ptr->shape[2]);
 
-    cloned.ptr->data = curr_;
+    for (int i = 0; i < ptr->shape[0]*ptr->shape[1]*ptr->shape[2]; ++i) {
+        cloned.ptr->data[i] = ptr->data[i];
+    }
+
     return cloned;
 }
 
 int& M3i::at(const int row_, const int column_, const int depth_)
 {
-    if( row_ > ptr->shape[0] || column_ > ptr->shape[1] || depth_ > ptr->shape[2])
-        throw std::out_of_range("index is out of range");
+    std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
+
+    if(row_ < 0 || column_ < 0 || depth_ < 0 || row_ > this->size(0) || column_ > this->size(1) || depth_ > this->size(2))
+        throw std::invalid_argument("invalid_argument");
+
     return  ptr->data[ptr->shape[2]*ptr->shape[1]*row_ + ptr->shape[2]*column_ + depth_];
 }
 
 int M3i::at(const int row_, const int column_, const int depth_) const
 {
-    if( row_ > ptr->shape[0] || column_ > ptr->shape[1] || depth_ > ptr->shape[2])
-        throw std::out_of_range("index is out of range");
+    std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
+
+    if(row_ < 0 || column_ < 0 || depth_ < 0 || row_ > this->size(0) || column_ > this->size(1) || depth_ > this->size(2))
+        throw std::invalid_argument("invalid_argument");
+
     return  ptr->data[ptr->shape[2]*ptr->shape[1]*row_ + ptr->shape[2]*column_ + depth_];
 }
 
 void M3i::resize (int rows_, int cols_, int depth_)
 {
+    std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
+
+    if(rows_ <= 0 || cols_ <= 0 || depth_ <= 0)
+        throw std::invalid_argument("invalid_argument");
+
     int* prev = ptr->data;
     int* new_data = new int [rows_ * cols_ * depth_];
     for(int i = 0; i < rows_*cols_*depth_; ++i)
@@ -117,6 +129,7 @@ void M3i::resize (int rows_, int cols_, int depth_)
     ptr->shape[0] = rows_;
     ptr->shape[1] = cols_;
     ptr->shape[2] = depth_;
+
 }
 
 int M3i::size(const int dim) const
@@ -156,6 +169,7 @@ std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
     }
     return istrm;
 }
+
 std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept
 {
     ostrm << "size:" << r.size(0) << "x" << r.size(1) << "x" << r.size(2) << std::endl;
