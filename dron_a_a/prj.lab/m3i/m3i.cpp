@@ -154,7 +154,7 @@ std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
             std::cout << std::endl;
         }
     }
-
+    return istrm;
 }
 std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept
 {
@@ -168,4 +168,5 @@ std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept
         }
         ostrm << std::endl;
     }
+    return ostrm;
 }

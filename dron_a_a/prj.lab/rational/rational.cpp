@@ -148,16 +148,30 @@ int Rational::denum() const
 std::istream& Rational::read_from(std::istream& istrm)
 {
     istrm >> numerator;
-
-    if (istrm.get() != '/' || !isdigit(istrm.peek()))
-        throw std::invalid_argument("invalid input");
-
-    istrm >> denominator;
-
-    if (denominator <= 0)
-        throw std::invalid_argument("invalid input");
-
-    normalize((*this));
+    if(istrm.good())
+    {
+        char sym = istrm.get();
+        if (sym != '/')
+            istrm.clear(std::ios_base::failbit);
+            //istrm.setstate(std::ios_base::failbit);
+        else
+        {
+            istrm >> denominator;
+            if(istrm.good() && denominator > 0)
+                normalize((*this));
+            else if(istrm.eof())
+                istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
+            else
+                istrm.clear(std::ios_base::failbit);
+            //istrm.setstate(std::ios_base::failbit);
+        }
+    }
+    else
+    {
+        numerator = 0;
+        denominator = 1;
+        istrm.clear( std::ios_base::failbit );
+    }
     return istrm;
 }
 
