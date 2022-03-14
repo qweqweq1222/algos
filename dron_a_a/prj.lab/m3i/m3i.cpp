@@ -116,8 +116,11 @@ void M3i::resize (int rows_, int cols_, int depth_)
 
     int* prev = ptr->data;
     int* new_data = new int [rows_ * cols_ * depth_];
+
+
     for(int i = 0; i < rows_*cols_*depth_; ++i)
         new_data[i] = 0;
+
     for(int i = 0; i < std::min(rows_, ptr->shape[0]); ++i)
         for(int j = 0; j < std::min(cols_, ptr->shape[1]); ++j)
             for(int k = 0; k < std::min(depth_, ptr->shape[2]); ++k)
@@ -129,7 +132,6 @@ void M3i::resize (int rows_, int cols_, int depth_)
     ptr->shape[0] = rows_;
     ptr->shape[1] = cols_;
     ptr->shape[2] = depth_;
-
 }
 
 int M3i::size(const int dim) const
@@ -150,21 +152,24 @@ int M3i::size(const int dim) const
 std::istream& operator >> (std::istream& istrm , M3i& r) noexcept
 {
     std::string str;
-    int size = 0;
-    for (int i = 0; i < r.size(0); ++i)
-    {
-        for (int j = 0; j < r.size(1); ++j)
-        {
-            std::cout << "[" << i << j <<  "] number____number " << r.size(2) << " times ";
-            std::getline(istrm, str);
+    int buffer = 0;
+    for (int i = 0; i < r.size(0); ++i){
+        for (int j = 0; j < r.size(1); ++j){
             for (int k = 0; k < r.size(2); ++k)
             {
-                r.at(i,j,k) = std::stoi(str);
-                size = std::to_string( r.at(i,j,k)).length();
-                if( k != r.size(2) - 1)
-                    str.erase(str.begin(), str.begin() + size + 1);
+                istrm >> buffer;
+
+                if(istrm.good())
+                    r.at(i,j,k) = buffer;
+                else
+                {
+                    if(istrm.eof())
+                        istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
+                    else
+                        istrm.clear(std::ios_base::failbit);
+                    return istrm;
+                }
             }
-            std::cout << std::endl;
         }
     }
     return istrm;
