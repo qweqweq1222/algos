@@ -3,16 +3,15 @@
  * 3-d tensor implementation
  * */
 
-#ifndef RATIONAL_RATIONAL_H_20220303
-#define RATIONAL_RATIONAL_H_20220303
+#ifndef ALGOS_DRON_A_A_PRJ_LAB_M3I_M3I_H_
+#define ALGOS_DRON_A_A_PRJ_LAB_M3I_M3I_H_
 #include<iosfwd>
 #include <mutex>
 #include <atomic>
 #include <initializer_list>
 
-class M3i
-{
-public:
+class M3i {
+ public:
     M3i();
     M3i(const M3i& tensor);
     M3i(int rows_, int cols_, int depth_ = 1) noexcept;
@@ -22,7 +21,7 @@ public:
     ~M3i();
 
     M3i& operator = (const M3i&);
-    M3i& operator = (M3i&& );
+    M3i& operator = (M3i&&);
 
     M3i clone() const;
     int size(const int dim) const;
@@ -32,9 +31,8 @@ public:
     void fill(const int val);
 
 
-private:
-    struct shared_ptr
-    {
+ private:
+    struct shared_ptr {
         shared_ptr(int* _data, const int col, const int row, const int depth, const int counter_);
 
         int* data = nullptr;
@@ -50,5 +48,5 @@ private:
 std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept;
 std::istream& operator >> (std::istream& istrm , M3i& r) noexcept;
 
-#endif
+#endif  //  ALGOS_DRON_A_A_PRJ_LAB_M3I_M3I_H_
 

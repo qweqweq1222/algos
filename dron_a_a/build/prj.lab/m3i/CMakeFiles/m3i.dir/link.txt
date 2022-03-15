@@ -1,2 +1,0 @@
-/usr/bin/ar qc libm3i.a  CMakeFiles/m3i.dir/m3i.cpp.o
-/usr/bin/ranlib libm3i.a
