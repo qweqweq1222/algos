@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../prj.lab/rational/rational.h
+iosfwd
+-
+algorithm
+-
+exception
+-
+
+/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/rational/rational.cpp
+iostream
+-
+algorithm
+-
+exception
+-
+rational/rational.h
+-
+sstream
+-
+string
+-
+utility
+-
+

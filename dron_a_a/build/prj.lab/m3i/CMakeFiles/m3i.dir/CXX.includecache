@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../prj.lab/m3i/m3i.h
+iosfwd
+-
+mutex
+-
+atomic
+-
+initializer_list
+-
+
+/home/anreydron/CLionProjects/520_B/algos/dron_a_a/prj.lab/m3i/m3i.cpp
+vector
+-
+iostream
+-
+exception
+-
+string
+-
+algorithm
+-
+m3i/m3i.h
+-
+

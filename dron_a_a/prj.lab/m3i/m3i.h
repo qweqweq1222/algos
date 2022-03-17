@@ -14,7 +14,7 @@ class M3i {
  public:
     M3i();
     M3i(const M3i& tensor);
-    M3i(int rows_, int cols_, int depth_ = 1) noexcept;
+    M3i(int rows_, int cols_, int depth_ = 1);
     M3i(const std::initializer_list<int> &list);
     M3i(M3i&&) noexcept;
 

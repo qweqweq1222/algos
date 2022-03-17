@@ -9,7 +9,8 @@ M3i::shared_ptr::shared_ptr(int* data_, const int cols, const int rows, const in
 
 M3i::M3i() : ptr(new shared_ptr(nullptr, 0, 0, 0, 1)) {}
 
-M3i::M3i(int rows_, int cols_, int depth_) noexcept: ptr(new shared_ptr(new int[rows_*cols_*depth_], rows_, cols_, depth_, 1)) {
+M3i::M3i(int rows_, int cols_, int depth_) {
+	this->ptr = new shared_ptr(new int[rows_*cols_*depth_], rows_, cols_, depth_, 1);
     if (rows_ <=0 || cols_ <=0 || depth_ <=0)
         throw std::invalid_argument("rows_ <=0 || cols_ <=0 || depth_ <= 0");
     fill(0);
@@ -61,6 +62,7 @@ M3i& M3i::operator = (M3i&& other) {
         ptr = other.ptr;
         other.ptr = nullptr;
     }
+	return *this;
 }
 
 M3i M3i::clone() const {
