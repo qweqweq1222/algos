@@ -10,39 +10,41 @@
 #include <atomic>
 #include <initializer_list>
 
-class M3i {
- public:
-    M3i();
-    M3i(const M3i& tensor);
-    M3i(int rows_, int cols_, int depth_ = 1);
-    M3i(const std::initializer_list<int> &list);
-    M3i(M3i&&) noexcept;
+class M3i
+{
+public:
+	M3i();
+	M3i(const M3i& tensor);
+	M3i(int rows_, int cols_, int depth_ = 1);
+	M3i(const std::initializer_list<std::initializer_list<std::initializer_list<int>>> &list);
+	M3i(M3i&&) noexcept;
 
-    ~M3i();
+	~M3i();
 
-    M3i& operator = (const M3i&);
-    M3i& operator = (M3i&&);
+	M3i& operator = (const M3i&);
+	M3i& operator = (M3i&& );
 
-    M3i clone() const;
-    int size(const int dim) const;
-    int& at(const int row_, const int column_, const int depth_);
-    int at(const int row_, const int col, const int depth_) const;
-    void resize(int rows_, int cols_, int depth_);
-    void fill(const int val);
+	M3i clone() const;
+	int size(const int dim) const;
+	int& at(const int row_, const int column_, const int depth_);
+	int at(const int row_, const int col, const int depth_) const;
+	void resize(int rows_, int cols_, int depth_);
+	void fill(const int val);
 
 
- private:
-    struct shared_ptr {
-        shared_ptr(int* _data, const int col, const int row, const int depth, const int counter_);
+private:
+	struct shared_ptr
+	{
+		shared_ptr(int* _data, const int col, const int row, const int depth, const int counter_);
 
-        int* data = nullptr;
-        int shape[3] = {0,0,0};
-        std::atomic<int> counter{0};
+		int* data = nullptr;
+		int shape[3] = {0,0,0};
+		std::atomic<int> counter{0};
 
-        std::recursive_mutex mtx;
-    };
+		std::recursive_mutex mtx;
+	};
 
-    shared_ptr* ptr = nullptr;
+	shared_ptr* ptr = nullptr;
 };
 
 std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept;

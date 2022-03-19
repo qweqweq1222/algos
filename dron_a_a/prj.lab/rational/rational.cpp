@@ -124,28 +124,38 @@ int Rational::denum() const {
 }
 
 std::istream& Rational::read_from(std::istream& istrm) {
-    istrm >> numerator;
-    if (istrm.good()) {
-        char sym = istrm.get();
-        if (sym != '/')
-            istrm.clear(std::ios_base::failbit);
-            // istrm.setstate(std::ios_base::failbit);
-        else {
-            istrm >> denominator;
-            if (istrm.good() && denominator > 0)
-                normalize((*this));
-            else if (istrm.eof())
-                istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
-            else
-                istrm.clear(std::ios_base::failbit);
-            //istrm.setstate(std::ios_base::failbit);
-        }
-    } else {
-        numerator = 0;
-        denominator = 1;
-        istrm.clear(std::ios_base::failbit);
-    }
-    return istrm;
+	char minus = '-';
+	if(!std::isdigit(istrm.peek()) && !(istrm.peek() == minus))
+		istrm.clear(std::ios_base::failbit);
+	else {
+		istrm >> numerator;
+		if(istrm.good()) {
+			char sym = istrm.get();
+			if (sym != '/')
+				istrm.clear(std::ios_base::failbit);
+				//istrm.setstate(std::ios_base::failbit);
+			else {
+				if(!std::isdigit(istrm.peek()))
+					istrm.clear(std::ios_base::failbit);
+				else {
+					istrm >> denominator;
+					if((istrm.good() && denominator > 0) || (istrm.rdstate() == std::ios_base::eofbit && denominator>0))
+						normalize((*this));
+					else if(istrm.eof())
+						istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
+					else
+						istrm.clear(std::ios_base::failbit);
+				}
+				//istrm.setstate(std::ios_base::failbit);
+			}
+		}
+		else {
+			numerator = 0;
+			denominator = 1;
+			istrm.clear( std::ios_base::failbit );
+		}
+	}
+	return istrm;
 }
 
 std::ostream& Rational::write_to(std::ostream& ostrm) const {

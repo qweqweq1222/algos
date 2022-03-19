@@ -32,14 +32,14 @@ TEST_CASE("constuctos") {
                 for (int k = 0; k < shape[2]; ++k)
                     CHECK(tensor_.at(i, j, k) == 0);
     }
-    SUBCASE("init list") {
+    /*SUBCASE("init list") {
         std::initializer_list<int> list = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         M3i tensor(list);
         for (int i = 0; i < 9; ++i) {
             int a = *(list.begin() + i);
             CHECK(tensor.at(0, i, 0) == *(list.begin() + i));
         }
-    }
+    }*/
 }
 /*
  * TEST_CASE("heavy_copy")

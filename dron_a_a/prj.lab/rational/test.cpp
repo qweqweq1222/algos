@@ -4,6 +4,12 @@
 #include <sstream>
 #include <iosfwd>
 
+struct CheckData {
+	std::string str;
+	int nmr;
+	int dmr;
+};
+
 const int gcd(const int& num, const int& den) {
     int max = (num > den) ? num : den;
     int min = (num > den) ? den : num;
@@ -98,6 +104,7 @@ TEST_CASE(">> <<") {
     int counter = 100;
     int nm = 0;
     int dnm = 0;
+	bool check_;
     std::string str;
     Rational fraction;
     SUBCASE(">>") {
@@ -110,8 +117,9 @@ TEST_CASE(">> <<") {
 
             str_strm >> fraction;
             str_strm.rdstate();
+			check_ = (str_strm.rdstate() == std::ios_base::failbit)|| (str_strm.rdstate() == (std::ios_base::failbit | std::ios_base::eofbit));
             if (dnm <= 0)
-                CHECK(str_strm.rdstate() == (std::ios_base::failbit | std::ios_base::eofbit));
+                CHECK(check_ == true);
             else
                 CHECK(fraction == Rational(nm, dnm));
         }
@@ -138,4 +146,49 @@ TEST_CASE(">> <<") {
             }
         }
     }
+}
+TEST_CASE("<< >>")
+{
+	const std::vector<CheckData> check_data{{"3/4", 3, 4},
+											{"-1/125", 1, -125},
+											{"0/1", 0, 1},
+											{"428/1517", -428, -1517},
+											{"1/1", 1024, 1024},
+											{"-8/9", -8, 9},
+											{"17/380", 17, 380},
+											{"-12345/1", 12345, -1}};
+
+	SUBCASE(" << ") {
+		for (auto frac : check_data) {
+			std::stringstream output;
+			Rational q1(frac.nmr, frac.dmr);
+
+			output << q1;
+
+			CHECK(output.str() == frac.str);
+		}
+	}
+
+	SUBCASE("operator >>") {
+			for (auto frac : check_data) {
+				std::stringstream input(frac.str);
+				Rational q1;
+
+				input >> q1;
+
+				CHECK(!input.fail());
+				CHECK(Rational(frac.nmr, frac.dmr) == q1);
+			}
+
+			std::vector<const char*> bad_input{"16/0", "9/-81", "3 15", "4\\80", "1 / 25", "7/ 8", "5 /17"};
+
+			for (auto str : bad_input) {
+				std::stringstream input(str);
+				Rational q1;
+
+				input >> q1;
+				//CHECK_THROWS(input >> q1);
+				CHECK(input.fail());
+			}
+		}
 }
