@@ -5,6 +5,23 @@
 #include <doctest/doctest.h>
 #include <m3i/m3i.h>
 
+bool operator== (const M3i& left, const M3i& right) {
+	if ((left.Size(0) != right.Size(0)) || (left.Size(1) != right.Size(1)) ||
+		(left.Size(2) != right.Size(2))) {
+		return false;
+	}
+	for(int i = 0; i < left.Size(0); ++i) {
+		for(int j = 0; j < left.Size(1); ++j) {
+			for(int k = 0; k < left.Size(2); ++k) {
+				if (left.At(i, j, k) != right.At(i, j, k)) {
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+
 TEST_CASE("constuctos") {
 
 	SUBCASE("x,y,z") {
@@ -109,22 +126,11 @@ TEST_CASE("ReSize + Fill") {
 }
 
 TEST_CASE(">>") {
-	int shape[3] = {rand()%10 + 1, rand()%10 + 1, rand()%10 + 1};
-	std::stringstream  str;
-	M3i tensor(shape[0], shape[1], shape[2]);
-	M3i tensor_(shape[0], shape[1], shape[2]);
-	for (int i = 0; i < shape[0]; ++i)
-		for (int j = 0; j < shape[1]; ++j)
-			for (int k = 0; k < shape[2]; ++k) {
-				tensor.At(i, j, k) = i + j + k;
-				str << i + j + k << std::endl;
-				}
-
-	str >> tensor_;
-
-	for (int i = 0; i < shape[0]; ++i)
-		for (int j = 0; j < shape[1]; ++j)
-			for (int k = 0; k < shape[2]; ++k)
-				CHECK(tensor_.At(i, j, k) == tensor.At(i, j, k));
+	std::stringstream str;
+	M3i tensor(2,2,2);
+	M3i tensor_ = {{{1,2}, {3,4}}, {{5,6}, {7,8}}};
+	str << "2 2 2\n";
+	str << "1\n2\n3\n4\n5\n6\n7\n8\n";
+	str >> tensor;
+	CHECK(tensor == tensor_);
 }
-

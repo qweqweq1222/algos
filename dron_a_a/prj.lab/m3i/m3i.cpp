@@ -147,22 +147,40 @@ int M3i::Size(const int dim) const {
 	}
 }
 
-std::istream& operator >> (std::istream& istrm , M3i& r) noexcept {
+std::ostream& M3i::WriteTo(std::ostream& ostrm) const noexcept
+{
+	ostrm << "start tensor" << std::endl;
+	ostrm << "shape: " << Size(0) << " " << Size(1) << " " << Size(2) << "\n\n";
+	for (int z = 0; z < Size(2); ++z){
+		for (int x = 0; x < Size(0); ++x) {
+			for (int y = 0; y < Size(1); ++y) {
+				ostrm << At(x,y,z) << " ";
+			}
+			ostrm << std::endl;
+		}
+		ostrm << std::endl;
+	}
+	ostrm << "end tensor" << std::endl;
+	return ostrm;
+}
+std::istream& M3i::ReadFrom (std::istream& istrm)
+{
 	std::string str;
+	int shape[3]  = {};
+	istrm >> shape[0] >> shape[1] >> shape[2];
+	Resize(shape[0], shape[1], shape[2]);
 	int buffer = 0;
-	for (int i = 0; i < r.Size(0); ++i){
-		for (int j = 0; j < r.Size(1); ++j){
-			for (int k = 0; k < r.Size(2); ++k) {
+	for (int i = 0; i < Size(0); ++i) {
+		for (int j = 0; j < Size(1); ++j) {
+			for (int k = 0; k < Size(2); ++k) {
 				istrm >> buffer;
-
-				if(istrm.good())
-					r.At(i,j,k) = buffer;
+				if (istrm.good())
+					At(i,j,k) = buffer;
 				else {
-					if(istrm.eof())
+					if (istrm.eof())
 						istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
 					else
 						istrm.clear(std::ios_base::failbit);
-					return istrm;
 				}
 			}
 		}
@@ -170,16 +188,5 @@ std::istream& operator >> (std::istream& istrm , M3i& r) noexcept {
 	return istrm;
 }
 
-std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept {
-	ostrm << "Size:" << r.Size(0) << "x" << r.Size(1) << "x" << r.Size(2) << std::endl;
-	for (int z = 0; z < r.Size(2); ++z){
-		for (int x = 0; x < r.Size(0); ++x) {
-			for (int y = 0; y < r.Size(1); ++y) {
-				ostrm << r.At(x,y,z) << " ";
-			}
-			ostrm << std::endl;
-		}
-		ostrm << std::endl;
-	}
-	return ostrm;
-}
+std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept { return r.WriteTo(ostrm); }
+std::istream& operator >> (std::istream& istrm , M3i& r) { return r.ReadFrom(istrm); }

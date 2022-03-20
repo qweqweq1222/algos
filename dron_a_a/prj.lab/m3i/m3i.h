@@ -30,7 +30,8 @@ public:
 	int At(const int row_, const int col, const int depth_) const;
 	void Resize(int rows_, int cols_, int depth_);
 	void Fill(const int val);
-
+	std::istream& ReadFrom (std::istream& istrm);
+	std::ostream& WriteTo (std::ostream& ostrm) const noexcept;
 
 private:
 	struct shared_ptr
@@ -48,7 +49,7 @@ private:
 };
 
 std::ostream& operator << (std::ostream& ostrm, M3i& r) noexcept;
-std::istream& operator >> (std::istream& istrm , M3i& r) noexcept;
+std::istream& operator >> (std::istream& istrm , M3i& r);
 
 #endif  //  ALGOS_DRON_A_A_PRJ_LAB_M3I_M3I_H_
 
