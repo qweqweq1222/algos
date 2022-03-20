@@ -24,12 +24,12 @@ public:
 	M3i& operator = (const M3i&);
 	M3i& operator = (M3i&& );
 
-	M3i clone() const;
-	int size(const int dim) const;
-	int& at(const int row_, const int column_, const int depth_);
-	int at(const int row_, const int col, const int depth_) const;
-	void resize(int rows_, int cols_, int depth_);
-	void fill(const int val);
+	M3i Clone() const;
+	int Size(const int dim) const;
+	int& At(const int row_, const int column_, const int depth_);
+	int At(const int row_, const int col, const int depth_) const;
+	void Resize(int rows_, int cols_, int depth_);
+	void Fill(const int val);
 
 
 private:

@@ -180,14 +180,13 @@ TEST_CASE("<< >>")
 				CHECK(Rational(frac.nmr, frac.dmr) == q1);
 			}
 
-			std::vector<const char*> bad_input{"16/0", "9/-81", "3 15", "4\\80", "1 / 25", "7/ 8", "5 /17"};
+			std::vector<const char*> bad_input{" 5/4", "16/0", "9/-81", "3 15", "4\\80", "1 / 25", "7/ 8", "5 /17"};
 
 			for (auto str : bad_input) {
 				std::stringstream input(str);
 				Rational q1;
 
 				input >> q1;
-				//CHECK_THROWS(input >> q1);
 				CHECK(input.fail());
 			}
 		}
