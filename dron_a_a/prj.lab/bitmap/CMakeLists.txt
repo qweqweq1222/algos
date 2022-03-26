@@ -1,0 +1,5 @@
+project(bitmap)
+set(CMAKE_CXX_STANDARD 14)
+add_library(bitmap bitmap.cpp bitmap.h)
+add_executable(test_bitmap test.cpp)
+target_link_libraries(test_bitmap bitmap)
