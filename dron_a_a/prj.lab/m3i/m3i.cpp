@@ -10,7 +10,7 @@ M3i::shared_ptr::shared_ptr(int* data_, const int cols, const int rows, const in
 M3i::M3i() : ptr(new shared_ptr(nullptr, 0, 0, 0, 1)) {}
 
 M3i::M3i(int rows_, int cols_, int depth_) {
-	if (rows_ <=0 || cols_ <=0 || depth_ <=0 )
+	if (rows_ <= 0 || cols_ <= 0 || depth_ <= 0 )
 		throw std::invalid_argument("rows_ <= 0 || cols_ <= 0 || depth_ <= 0");
 	ptr = new shared_ptr(new int [rows_*cols_*depth_], rows_,cols_,depth_, 1);
 	Fill(0);
@@ -50,7 +50,7 @@ M3i::M3i(const std::initializer_list<std::initializer_list<std::initializer_list
 }
 
 M3i::~M3i() {
-	if (ptr != nullptr) {
+	if(ptr != nullptr) {
 		if (ptr->counter.fetch_sub(1) == 1)
 			delete[] ptr->data;
 		ptr = nullptr;
@@ -72,10 +72,10 @@ M3i& M3i::operator = (const M3i& object) {
 M3i& M3i::operator = (M3i&& other) {
 	std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
 	if (this != &other) {
-		this->~M3i();
 		ptr = other.ptr;
-		other.ptr = nullptr;
+		other.~M3i();
 	}
+	return *this;
 }
 
 M3i M3i::Clone() const {
@@ -167,20 +167,51 @@ std::istream& M3i::ReadFrom (std::istream& istrm)
 {
 	std::string str;
 	int shape[3]  = {};
-	istrm >> shape[0] >> shape[1] >> shape[2];
+	for (int i = 0; i < 3; ++i) {
+		if(!isdigit(istrm.peek())) {
+			istrm.clear(std::ios_base::failbit);
+			return istrm;
+		} else {
+			istrm >> shape[i];
+			if(!istrm.good())
+			{
+				istrm.clear(std::ios_base::failbit);
+				return istrm;
+			}
+			if( i != 2)
+				istrm.get();
+		}
+	}
+	if(shape[0] <= 0 || shape[1] <= 0 || shape[2] <= 0 || !istrm.good()) {
+		istrm.clear(std::ios_base::failbit);
+		return istrm;
+	}
+
 	Resize(shape[0], shape[1], shape[2]);
 	int buffer = 0;
 	for (int i = 0; i < Size(0); ++i) {
 		for (int j = 0; j < Size(1); ++j) {
 			for (int k = 0; k < Size(2); ++k) {
-				istrm >> buffer;
-				if (istrm.good())
-					At(i,j,k) = buffer;
-				else {
-					if (istrm.eof())
-						istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
-					else
+				char minus = '-';
+				if(istrm.peek() != '\n') {
+					istrm.clear(std::ios_base::failbit);
+					return istrm;
+				} else {
+					istrm.get();
+					if(!std::isdigit(istrm.peek()) && !(istrm.peek() == minus)) {
 						istrm.clear(std::ios_base::failbit);
+						return istrm;
+					}
+					istrm >> buffer;
+					if (istrm.good())
+						At(i,j,k) = buffer;
+					else {
+						if (istrm.eof())
+							istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
+						else
+							istrm.clear(std::ios_base::failbit);
+						return istrm;
+					}
 				}
 			}
 		}
