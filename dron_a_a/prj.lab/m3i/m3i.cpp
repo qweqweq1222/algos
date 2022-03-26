@@ -163,6 +163,7 @@ std::ostream& M3i::WriteTo(std::ostream& ostrm) const noexcept
 	ostrm << "end tensor" << std::endl;
 	return ostrm;
 }
+
 std::istream& M3i::ReadFrom (std::istream& istrm)
 {
 	std::string str;
