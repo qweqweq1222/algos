@@ -1,24 +1,24 @@
 #include <iostream>
-#include "bitmap.h"
+#include <bitmap/bitmap.h>
+
+void Print(Bitmap &bitmap)
+{
+
+	for(int i = 0; i < bitmap.Size(); ++i) {
+		if(bitmap[i])
+			std::cout << 1 << " ";
+		else
+			std::cout << 0 << " ";
+	}
+	std::cout << std::endl;
+}
 
 int main()
 {
 	Bitmap bitmap(16, true);
-	bitmap.Print();
-	for(int i = 0; i < 16; ++i) {
-		if (bitmap[i])
-			std::cout << "T ";
-		else
-			std::cout << "F ";
-	}
-	std::cout << std::endl;
-	bitmap[15] = false;
-	for(int i = 0; i < 16; ++i) {
-		if (bitmap[i])
-			std::cout << "T ";
-		else
-			std::cout << "F ";
-	}
+	Bitmap bitmap_(8, true);
+	bitmap & bitmap_;
+	std::cout << bitmap.Capacity();
 	return 0;
 }
 

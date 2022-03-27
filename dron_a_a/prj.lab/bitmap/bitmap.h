@@ -2,14 +2,8 @@
 // Created by anreydron on 26.03.2022.
 //
 
-#ifndef INC_520_B_ALGOS_DRON_A_A_PRJ_LAB_BITMAP_BITMAP_H
-#define INC_520_B_ALGOS_DRON_A_A_PRJ_LAB_BITMAP_BITMAP_H
-
-//
-// Created by anreydron on 26.03.2022.
-//
-
-
+#ifndef BITMAP__BITMAP_H
+#define BITMAP__BITMAP_H
 #include <cstdint>
 #include <iostream>
 class Bitmap
@@ -32,7 +26,7 @@ public:
 		BoolHolder&
 		operator=(BoolHolder&&) = default;
 		BoolHolder& operator=(bool st) {
-			std::cout << int(*byte_ptr) << " " << int(mask) << std::endl;
+			//std::cout << int(*byte_ptr) << " " << int(mask) << std::endl;
 			*byte_ptr = (st) ? (*byte_ptr | mask) : (*byte_ptr & ~mask);
 			return *this;
 		}
@@ -61,9 +55,10 @@ public:
 	void operator ~ ();
 
 	int Size () const;
+	void GetCapacity();
+	int Capacity() const;
 	void Resize(const int size);
 	BoolHolder& operator [] (const int index);
-	void Print();
 
 private:
 	int size;
@@ -71,4 +66,4 @@ private:
 	uint8_t* bitmap;
 };
 
-#endif //INC_520_B_ALGOS_DRON_A_A_PRJ_LAB_BITMAP_BITMAP_H
+#endif //BITMAP__BITMAP_H

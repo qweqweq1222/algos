@@ -2,7 +2,7 @@
 // Created by anreydron on 26.03.2022.
 //
 
-#include "bitmap.h"
+#include <bitmap/bitmap.h>
 #include <cmath>
 #include <iostream>
 #include <algorithm>
@@ -51,6 +51,7 @@ void Bitmap::operator << (const int len)
 		}
 		capacity = (capacity > 0) ? (capacity - 1) : capacity;
 	}
+	GetCapacity();
 	// only size elements
 }
 
@@ -74,6 +75,7 @@ void Bitmap::operator >> (const int len)
 		capacity = (capacity < size) ? (capacity + 1) : capacity;
 	}
 	Bitmap equalizer(size, true);
+	GetCapacity();
 	*this & equalizer;
 }
 
@@ -84,15 +86,8 @@ void Bitmap::operator ~ ()
 		bitmap[i] = ~bitmap[i];
 
 	Bitmap equalizer(size, true);
+	GetCapacity();
 	*this & equalizer;
-}
-
-void Bitmap::Print()
-{
-	int length = (size % 8 == 0) ? (size / 8) : (1 + (size / 8));
-	for(int i = 0; i < length; ++i)
-		std::cout << int(bitmap[i]) << " ";
-	std::cout << std::endl;
 }
 
 Bitmap& Bitmap::operator & (Bitmap& other)
@@ -104,6 +99,7 @@ Bitmap& Bitmap::operator & (Bitmap& other)
 		bitmap[i] &= other.bitmap[i];
 	for(int i = minimum; i < length; ++i)
 		bitmap[i] = 0;
+	GetCapacity();
 	return *this;
 }
 
@@ -114,6 +110,7 @@ Bitmap& Bitmap::operator | (Bitmap& other)
 	int minimum = std::min(length, other_length);
 	for(int i = 0; i < minimum; ++i)
 		bitmap[i] |= other.bitmap[i];
+	GetCapacity();
 	return *this;
 }
 
@@ -124,6 +121,7 @@ Bitmap& Bitmap::operator ^ (Bitmap& other)
 	int minimum = std::min(length, other_length);
 	for(int i = 0; i < minimum; ++i)
 		bitmap[i] ^= other.bitmap[i];
+	GetCapacity();
 	return *this;
 }
 void Bitmap::Resize(const int size_)
@@ -141,13 +139,34 @@ void Bitmap::Resize(const int size_)
 	size = size_;
 }
 
+void Bitmap::GetCapacity()
+{
+	int n_block = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	std::vector<uint8_t> vec = {1,2,4,8,16,32,64,128};
+	for(int i = n_block - 1; i >=0; --i) {
+		if(bitmap[i] != 0) {
+			for(auto mask : vec){
+				if(mask & bitmap[i])
+				{
+					i = 0;
+					break;
+				} else {
+					capacity -= 1;
+				}
+			}
+			break;
+		} else {
+			capacity -= 8;
+		}
+	}
+}
+int Bitmap::Capacity() const { return capacity; }
 int Bitmap::Size() const { return size; }
 Bitmap::BoolHolder& Bitmap::operator[](const int index)
 {
-	int pos = (index % 8 == 0 & index != 0) ? index/8 : (1 + index/8);
-	int idx = index - 8*(index/8);
+	int pos = index / 8;
+	int idx = index%8;
 	std::vector<uint8_t> vec = {1,2,4,8,16,32,64,128};
-	pos = (pos > 0) ? (pos - 1): pos;
 	auto* bh = new Bitmap::BoolHolder(&bitmap[pos], vec[7 - idx]);
 	return *bh;
 }
