@@ -128,6 +128,19 @@ TEST_CASE("ReSize + Fill") {
 	CHECK(s == true);
 }
 
+TEST_CASE("move")
+{
+	int d1 = 2;
+	int d2 = 3;
+	int d3 = 4;
+	M3i m3i(d1, d2, d3);
+	M3i copy_m3i = m3i;
+	M3i move_m3i(std::move(m3i));
+	CHECK(move_m3i == copy_m3i);
+	M3i second_m3i(d1, d2, d3);
+	move_m3i = std::move(second_m3i);
+	CHECK(move_m3i == copy_m3i);
+}
 struct spec_for
 {
 	std::string str;
