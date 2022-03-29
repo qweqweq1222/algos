@@ -134,11 +134,13 @@ struct spec_for
 	std::initializer_list<std::initializer_list<std::initializer_list<int>>> lst;
 };
 
-TEST_CASE(">> OK") {
+TEST_CASE(">> OK")
+{
 	std::vector<spec_for> vec = {{"2 2 2\n1\n2\n3\n4\n5\n6\n7\n8\n", {{{1,2}, {3,4}}, {{5,6}, {7,8}}}},
 								 {"1 1 1\n7\n", {{{7}}}},
-								 {"2 2 2\n1\n2\n-3\n4\n5\n6\n7\n-8\n", {{{1,2}, {-3,4}}, {{5,6}, {7,-8}}}}};
-	for(auto & i : vec) {
+								 {"2 2 2\n1 2 -3\n4\n5\n6\n7\n-8\n", {{{1,2}, {-3,4}}, {{5,6}, {7,-8}}}}};
+	for(auto & i : vec)
+	{
 		std::stringstream input(i.str);
 		M3i tensor = i.lst;
 		M3i tensor_;
@@ -146,13 +148,12 @@ TEST_CASE(">> OK") {
 		CHECK(tensor_ == tensor);
 	}
 }
-
-TEST_CASE(">> FAIL") {
-	std::vector<spec_for> vec = {{"2 2 2\n1 \n2\n3\n4\n5\n6\n7\n8\n", {{{1,2}, {3,4}}, {{5,6}, {7,8}}}},
-								 {"1 1 -1\n7\n", {{{7}}}},
-								 {"2 2 2\n 1\n2\n-3\n4\n5\n6\n7\n-8\n", {{{1,2}, {-3,4}}, {{5,6}, {7,-8}}}},
-								 {"2 c 2\n 1\n2\n-3\n4\n5\n6\n7\n-8\n", {{{1,2}, {-3,4}}, {{5,6}, {7,-8}}}}};
-	for (auto & i : vec) {
+TEST_CASE(">> FAIL")
+{
+	std::vector<spec_for> vec = {{"2 2 2\n1 \nc\n3\n4\n5\n6\n7\n8\n", {{{1,2}, {3,4}}, {{5,6}, {7,8}}}},
+								 {"1 1 -1\n7\n", {{{7}}}}};
+	for(auto & i : vec)
+	{
 		std::stringstream input(i.str);
 		M3i tensor = i.lst;
 		M3i tensor_;

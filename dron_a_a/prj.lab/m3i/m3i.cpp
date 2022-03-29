@@ -73,6 +73,7 @@ M3i& M3i::operator = (M3i&& other) {
 	std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
 	if (this != &other) {
 		ptr = other.ptr;
+		ptr->counter.fetch_add(1);
 		other.~M3i();
 	}
 	return *this;
@@ -193,6 +194,11 @@ std::istream& M3i::ReadFrom (std::istream& istrm)
 	for (int i = 0; i < Size(0); ++i) {
 		for (int j = 0; j < Size(1); ++j) {
 			for (int k = 0; k < Size(2); ++k) {
+				int number;
+				istrm >> number;
+				if(istrm.good())
+					At(i, j, k) = number;
+				/*
 				char minus = '-';
 				if(istrm.peek() != '\n') {
 					istrm.clear(std::ios_base::failbit);
@@ -213,7 +219,7 @@ std::istream& M3i::ReadFrom (std::istream& istrm)
 							istrm.clear(std::ios_base::failbit);
 						return istrm;
 					}
-				}
+				}*/
 			}
 		}
 	}
