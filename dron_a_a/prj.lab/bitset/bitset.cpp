@@ -2,7 +2,7 @@
 // Created by anreydron on 26.03.2022.
 //
 
-#include <bitmap/bitmap.h>
+#include <bitset/bitset.h>
 #include <cmath>
 #include <iostream>
 #include <algorithm>

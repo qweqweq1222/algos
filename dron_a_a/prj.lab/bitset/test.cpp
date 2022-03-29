@@ -1,5 +1,5 @@
 #include <iostream>
-#include <bitmap/bitmap.h>
+#include <bitset/bitset.h>
 
 void Print(Bitmap &bitmap)
 {
