@@ -1,7 +1,7 @@
 #include <iostream>
 #include <bitset/bitset.h>
 
-void Print(Bitmap &bitmap)
+void Print(BitSet &bitmap)
 {
 
 	for(int i = 0; i < bitmap.Size(); ++i) {
@@ -15,8 +15,8 @@ void Print(Bitmap &bitmap)
 
 int main()
 {
-	Bitmap bitmap(16, true);
-	Bitmap bitmap_(8, true);
+	BitSet bitmap(16, true);
+	BitSet bitmap_(8, true);
 	bitmap & bitmap_;
 	std::cout << bitmap.Capacity();
 	return 0;

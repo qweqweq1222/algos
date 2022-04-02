@@ -1,31 +1,25 @@
-//
-// Created by anreydron on 26.03.2022.
-//
-
-#ifndef BITMAP__BITMAP_H
-#define BITMAP__BITMAP_H
+#ifndef BitSet__BitSet_H
+#define BitSet__BitSet_H
 #include <cstdint>
 #include <iostream>
-class Bitmap
+class BitSet
 {
 public:
-	struct BoolHolder
+	struct BitHolder
 	{
 		uint8_t* byte_ptr;
 		uint8_t mask;
-		BoolHolder() = delete;
-		BoolHolder(uint8_t* byte_ptr, uint8_t mask) : byte_ptr(byte_ptr), mask(mask){
+		BitHolder() = delete;
+		BitHolder(uint8_t* byte_ptr, uint8_t mask) : byte_ptr(byte_ptr), mask(mask){
 			//std::cout << "bytes: " << int(*byte_ptr) << " mask: " << int(mask) << std::endl;
 		};
 
-		BoolHolder(const BoolHolder&) = delete;
-		BoolHolder(BoolHolder&&) = delete;
+		BitHolder(const BitHolder&) = delete;
+		BitHolder(BitHolder&&) = delete;
 
-		BoolHolder&
-		operator=(const BoolHolder&) = default;
-		BoolHolder&
-		operator=(BoolHolder&&) = default;
-		BoolHolder& operator=(bool st) {
+		BitHolder& operator=(const BitHolder&) = default;
+		BitHolder& operator=(BitHolder&&) = default;
+		BitHolder& operator=(bool st) {
 			//std::cout << int(*byte_ptr) << " " << int(mask) << std::endl;
 			*byte_ptr = (st) ? (*byte_ptr | mask) : (*byte_ptr & ~mask);
 			return *this;
@@ -38,18 +32,18 @@ public:
 		}
 	};
 
-	Bitmap() = default;
-	Bitmap(Bitmap&& other) = default;
-	Bitmap(const Bitmap& other) = default;
-	Bitmap(const int size, const bool val = false);
+	BitSet() = default;
+	BitSet(BitSet&& other) = default;
+	BitSet(const BitSet& other) = default;
+	BitSet(const int size, const bool val = false);
 
-	~Bitmap() = default;
+	~BitSet() = default;
 
-	Bitmap& operator = (const Bitmap& other) = default;
-	Bitmap& operator = (Bitmap&& other) = default;
-	Bitmap& operator | (Bitmap& other);
-	Bitmap& operator & (Bitmap& other);
-	Bitmap& operator ^ (Bitmap& other);
+	BitSet& operator = (const BitSet& other) = default;
+	BitSet& operator = (BitSet&& other) = default;
+	BitSet& operator | (BitSet& other);
+	BitSet& operator & (BitSet& other);
+	BitSet& operator ^ (BitSet& other);
 	void operator << (const int len);
 	void operator >> (const int len);
 	void operator ~ ();
@@ -58,12 +52,14 @@ public:
 	void GetCapacity();
 	int Capacity() const;
 	void Resize(const int size);
-	BoolHolder& operator [] (const int index);
+	BitHolder& operator [] (const int index);
+	BitHolder at(int idx);
+	bool operator[](int idx) const;
 
 private:
 	int size;
 	int capacity;
-	uint8_t* bitmap;
+	uint8_t* set;
 };
 
-#endif //BITMAP__BITMAP_H
+#endif //BitSet__BitSet_H
