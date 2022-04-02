@@ -68,22 +68,17 @@ TEST_CASE("heavy_copy") {
 	CHECK(check_ == true);
 }
 
-TEST_CASE("wrong indexes") {
-	int Size_limit = 10;
-
-	SUBCASE("ReSize") {
-	for (int i = 0; i < Size_limit; ++i) {
-		M3i tensor(rand() % Size_limit + 1, rand() % Size_limit + 1, rand() % Size_limit + 1);
-		CHECK_THROWS_WITH_AS(tensor.Resize(rand()%Size_limit - Size_limit,rand()%Size_limit - Size_limit,rand()%Size_limit - Size_limit), "invalid_argument", std::invalid_argument);
-	}
-}
-SUBCASE("At") {
-	int shape[3] = {rand() % Size_limit + 1, rand() % Size_limit + 1, rand() % Size_limit + 1};
-	for (int i = 0; i < Size_limit; ++i) {
-		M3i tensor(rand() % Size_limit + 1, rand() % Size_limit + 1, rand() % Size_limit + 1);
-		CHECK_THROWS_WITH_AS(tensor.At(rand()%Size_limit - Size_limit,rand()%Size_limit - Size_limit,rand()%Size_limit - Size_limit), "invalid_argument", std::invalid_argument);
-		}
-	}
+TEST_CASE("wrong params") {
+	int size = 5;
+	M3i tensor(size,size,size);
+	std::vector<std::vector<int>> incorrect_At = {{size,size,size}, {-(size-1),size-1,size-1},
+												  {size-1,-(size-1),size-1},{size-1,size-1,-(size-1)}};
+	std::vector<std::vector<int>> incorrect_Resize = {{-(size-1),size-1,size-1},{0, size,size},
+													  {size-1,-(size-1),size-1},{size-1,size-1,-(size-1)}};
+	for(auto& vec: incorrect_At)
+		CHECK_THROWS_WITH_AS(tensor.At(vec[0], vec[1], vec[2]), "invalid_argument", std::invalid_argument);
+	for(auto& vec: incorrect_Resize)
+		CHECK_THROWS_WITH_AS(tensor.Resize(vec[0], vec[1],vec[2]), "invalid_argument", std::invalid_argument);
 }
 
 TEST_CASE("light copy") {

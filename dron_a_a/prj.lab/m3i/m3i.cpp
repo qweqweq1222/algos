@@ -94,7 +94,7 @@ M3i M3i::Clone() const {
 int& M3i::At(const int row_, const int column_, const int depth_) {
 	std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
 
-	if (row_ < 0 || column_ < 0 || depth_ < 0 || row_ > this->Size(0) || column_ > this->Size(1) || depth_ > this->Size(2))
+	if (row_ < 0 || column_ < 0 || depth_ < 0 || row_ >= this->Size(0) || column_ >= this->Size(1) || depth_ >= this->Size(2))
 		throw std::invalid_argument("invalid_argument");
 
 	return  ptr->data[ptr->shape[2]*ptr->shape[1]*row_ + ptr->shape[2]*column_ + depth_];
@@ -103,7 +103,7 @@ int& M3i::At(const int row_, const int column_, const int depth_) {
 int M3i::At(const int row_, const int column_, const int depth_) const {
 	std::lock_guard<std::recursive_mutex> lock(ptr->mtx);
 
-	if (row_ < 0 || column_ < 0 || depth_ < 0 || row_ > this->Size(0) || column_ > this->Size(1) || depth_ > this->Size(2))
+	if (row_ < 0 || column_ < 0 || depth_ < 0 || row_ >= this->Size(0) || column_ >= this->Size(1) || depth_ >= this->Size(2))
 		throw std::invalid_argument("invalid_argument");
 
 	return  ptr->data[ptr->shape[2]*ptr->shape[1]*row_ + ptr->shape[2]*column_ + depth_];
@@ -198,28 +198,6 @@ std::istream& M3i::ReadFrom (std::istream& istrm)
 				istrm >> number;
 				if(istrm.good())
 					At(i, j, k) = number;
-				/*
-				char minus = '-';
-				if(istrm.peek() != '\n') {
-					istrm.clear(std::ios_base::failbit);
-					return istrm;
-				} else {
-					istrm.get();
-					if(!std::isdigit(istrm.peek()) && !(istrm.peek() == minus)) {
-						istrm.clear(std::ios_base::failbit);
-						return istrm;
-					}
-					istrm >> buffer;
-					if (istrm.good())
-						At(i,j,k) = buffer;
-					else {
-						if (istrm.eof())
-							istrm.clear(std::ios_base::failbit | std::ios_base::eofbit);
-						else
-							istrm.clear(std::ios_base::failbit);
-						return istrm;
-					}
-				}*/
 			}
 		}
 	}
