@@ -170,3 +170,13 @@ std::ostream& operator << (std::ostream& ostrm, const Rational& r) {
 std::istream& operator >> (std::istream& istrm, Rational& r) {
     return r.read_from(istrm);
 }
+
+const Rational operator+(const Rational& lhs, const int n) { return lhs + Rational(n); }
+const Rational operator-(const Rational& lhs, const int n) { return lhs - Rational(n); }
+const Rational operator*(const Rational& lhs, const int n) { return lhs * Rational(n); }
+const Rational operator/(const Rational& lhs, const int n) { return lhs / Rational(n); }
+
+const Rational operator+(const int n, const Rational& rhs) { return Rational(n) + rhs; }
+const Rational operator-(const int n, const Rational& rhs) { return Rational(n) - rhs; }
+const Rational operator*(const int n, const Rational& rhs) { return Rational(n) * rhs; }
+const Rational operator/(const int n, const Rational& rhs) { return Rational(n) / rhs; }

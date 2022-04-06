@@ -191,3 +191,31 @@ TEST_CASE("<< >>")
 			}
 		}
 }
+
+TEST_CASE("int arithmetic")
+{
+	bool checker = false;
+	std::vector<int> int_numbers = {1, 2, 119, 52};
+	std::vector<Rational> dr_number = {Rational(5,4), Rational(4,3), Rational(-3,2), Rational(1,2)};
+	for(int i = 0; i < int_numbers.size(); ++i)
+	{
+		checker = (int_numbers[i] + dr_number[i]) == (Rational(int_numbers[i]) + dr_number[i]);
+		CHECK(checker == true);
+		checker = (int_numbers[i] - dr_number[i]) == (Rational(int_numbers[i]) - dr_number[i]);
+		CHECK(checker == true);
+		checker = (int_numbers[i] * dr_number[i]) == (Rational(int_numbers[i]) * dr_number[i]);
+		CHECK(checker == true);
+		checker = (int_numbers[i] / dr_number[i]) == (Rational(int_numbers[i]) / dr_number[i]);
+		CHECK(checker == true);
+
+
+		checker = (dr_number[i] + int_numbers[i]) == (dr_number[i] + Rational(int_numbers[i]));
+		CHECK(checker == true);
+		checker = (dr_number[i] - int_numbers[i]) == (dr_number[i] - Rational(int_numbers[i]));
+		CHECK(checker == true);
+		checker = (dr_number[i] * int_numbers[i]) == (dr_number[i] * Rational(int_numbers[i]));
+		CHECK(checker == true);
+		checker = (dr_number[i] / int_numbers[i]) == (dr_number[i] / Rational(int_numbers[i]));
+		CHECK(checker == true);
+	}
+}
