@@ -31,6 +31,8 @@ class Rational {
     bool operator<=(const Rational& rhs) const noexcept;
     bool operator>=(const Rational& rhs) const noexcept;
 
+
+
     std::istream& read_from(std::istream& istrm);
     std::ostream& write_to(std::ostream& ostrm) const;
 
@@ -55,6 +57,16 @@ inline Rational operator * (const Rational& lhs, const Rational& rhs) {
 inline Rational operator / (const Rational& lhs, const Rational& rhs) {
     return Rational(lhs) /= rhs;
 }
+
+const Rational operator+(const Rational& lhs, const int n);
+const Rational operator-(const Rational& lhs, const int n);
+const Rational operator*(const Rational& lhs, const int n);
+const Rational operator/(const Rational& lhs, const int n);
+
+const Rational operator+(const int n, const Rational& rhs);
+const Rational operator-(const int n, const Rational& rhs);
+const Rational operator*(const int n, const Rational& rhs);
+const Rational operator/(const int n, const Rational& rhs);
 
 std::ostream& operator << (std::ostream& ostrm, const Rational& r);
 std::istream& operator >> (std::istream& istrm, Rational& r);
