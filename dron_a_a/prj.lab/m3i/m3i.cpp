@@ -15,6 +15,13 @@ M3i::M3i(int rows_, int cols_, int depth_) {
 	ptr = new shared_ptr(new int [rows_*cols_*depth_], rows_,cols_,depth_, 1);
 	Fill(0);
 }
+M3i::M3i(int rows_, int cols_, int depth_, int value)
+{
+	if (rows_ <= 0 || cols_ <= 0 || depth_ <= 0 )
+		throw std::invalid_argument("rows_ <= 0 || cols_ <= 0 || depth_ <= 0");
+	ptr = new shared_ptr(new int [rows_*cols_*depth_], rows_,cols_,depth_, 1);
+	Fill(value);
+}
 
 M3i::M3i(const M3i& other) {
 	ptr = other.ptr;
@@ -150,18 +157,16 @@ int M3i::Size(const int dim) const {
 
 std::ostream& M3i::WriteTo(std::ostream& ostrm) const noexcept
 {
-	ostrm << "start tensor" << std::endl;
-	ostrm << "shape: " << Size(0) << " " << Size(1) << " " << Size(2) << "\n\n";
-	for (int z = 0; z < Size(2); ++z){
-		for (int x = 0; x < Size(0); ++x) {
-			for (int y = 0; y < Size(1); ++y) {
+	ostrm << "size: " << Size(0) << " " << Size(1) << " " << Size(2) << "\n\n";
+	for (int x = 0; x < Size(0); ++x){
+		for (int y = 0; y < Size(1); ++y) {
+			for (int z = 0; z < Size(2); ++z) {
 				ostrm << At(x,y,z) << " ";
 			}
 			ostrm << std::endl;
 		}
 		ostrm << std::endl;
 	}
-	ostrm << "end tensor" << std::endl;
 	return ostrm;
 }
 
