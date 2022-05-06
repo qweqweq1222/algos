@@ -86,7 +86,8 @@ BitSet& BitSet::operator ^= (const BitSet& other)
 {
 	if (size != other.size)
 		throw std::invalid_argument("l.size != r.size");
-	for (int i = 0; i < other.size; ++i)
+	int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	for(int i = 0; i < length; ++i)
 		set[i] ^= other.set[i];
 	return *this;
 }
@@ -125,7 +126,15 @@ bool BitSet::operator[](const int index) const {
 	int array_index = index / 8;
 	return (set[array_index] >> (index % 8)) & mask;
 }
-const BitSet operator^ (const BitSet& left, const BitSet& right) { return BitSet(left) ^= right; }
+const BitSet operator^ (const BitSet& left, const BitSet& right)
+{
+	BitSet result(left.Size(), false);
+	if (left.Size() != right.Size())
+		throw std::invalid_argument("invalid input");
+	for(int i = 0; i < left.Size(); ++i)
+		result[i] = (left[i] != right[i]);
+	return result;
+}
 const BitSet operator& (const BitSet& left, const BitSet& right) { return BitSet(left) &= right; }
 const BitSet operator| (const BitSet& left, const BitSet& right) { return BitSet(left) |= right; }
 std::ostream& operator<<(std::ostream& ostrm, const BitSet& bs) {
