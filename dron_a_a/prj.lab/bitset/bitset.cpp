@@ -24,6 +24,22 @@ BitSet::BitSet(const int size_, const bool val)
 	}
 	size = size_;
 }
+BitSet::BitSet(BitSet&& other):set(other.set), size(other.size)
+{
+	other.size = 0;
+	other.set = nullptr;
+}
+BitSet& BitSet::operator = (BitSet&& other)
+{
+	if(this != &other)
+	{
+		delete[] set;
+		set = other.set;
+		size = other.size;
+		other.set = nullptr;
+		other.size = 0;
+	}
+}
 void BitSet::operator << (const int len)
 {
 	int iteration = (size % 8 == 0) ? size : (size + 1);
@@ -57,6 +73,16 @@ void BitSet::operator >> (const int len)
 	}
 	BitSet equalizer(size, true);
 	*this & equalizer;
+}
+BitSet& BitSet::operator = (const BitSet& other)
+{
+	size = other.size;
+	int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	delete[] set;
+	set = new uint8_t(length);
+	for (int i = 0; i < length; ++i)
+		set[i] = other.set[i];
+	return *this;
 }
 BitSet& BitSet::operator &= (const BitSet& other)
 {
@@ -165,18 +191,16 @@ std::istream& operator>>(std::istream& istrm, BitSet& bs) {
 }
 const BitSet  BitSet::operator~()
 {
+
 	BitSet bs = *this;
-	for(int i = 0; i < size/8; ++i)
-		bs.set[i] = ~set[i];
-	int tail = size - 8*(size/8);
 	int len = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
-	int result = 0;
-	if(tail > 0)
-	{
-		bs[len - 1] = ~set[len - 1];
-		for(int i = 0; i < tail; ++i)
-			result += int(pow(2, i));
-		bs[len-1] = set[len-1] & result;
+	int tail = size % 8;
+	for (int i = 0; i < size / 8; ++i) {
+		bs.set[i] = ~set[i];
+	}
+	if (tail > 0) {
+		uint16_t mask = UINT8_MAX >> (8 - tail);
+		bs.set[len - 1] = mask & ~set[len - 1];
 	}
 	return bs;
 }

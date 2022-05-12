@@ -1,7 +1,3 @@
-//
-// Created by anreydron on 26.03.2022.
-//
-
 #ifndef BitSet__BitSet_H
 #define BitSet__BitSet_H
 #include <cstdint>
@@ -13,12 +9,19 @@ private:
 public:
 
 	BitSet() = default;
-	BitSet(BitSet&& other) = default;
-	BitSet(const BitSet& other) = default;
+	BitSet(BitSet&& other);
+	BitSet(const BitSet& other) //changed
+	{
+		int len = (other.size % 8 == 0) ? int((other.size / 8)) : int((1 + (other.size / 8)));
+		set = new uint8_t [len];
+		for(int i = 0; i < len; ++i)
+			set[i] = other.set[i];
+		size = other.size;
+	}
 	BitSet(const int size, const bool val = false);
 	~BitSet() = default;
-	BitSet& operator = (const BitSet& other) = default;
-	BitSet& operator = (BitSet&& other) = default;
+	BitSet& operator = (const BitSet& other);
+	BitSet& operator = (BitSet&& other);
 	BitSet& operator |= (const BitSet& other);
 	BitSet& operator &= (const BitSet& other);
 	BitSet& operator ^= (const BitSet& other);
@@ -42,23 +45,27 @@ private:
 		};
 		BitHolder(const BitHolder&) = delete;
 		BitHolder(BitHolder&&) = delete;
-		BitHolder&
-		operator=(const BitHolder&) = default;
-		BitHolder&
-		operator=(BitHolder&&) = default;
-		BitHolder& operator=(bool st) {
-			//std::cout << int(*byte_ptr) << " " << int(mask) << std::endl;
+		BitHolder& operator= (const BitHolder&) = default;
+		BitHolder& operator= (BitHolder&&) = default;
+		BitHolder& operator= (bool st) {
 			*byte_ptr = (st) ? (*byte_ptr | mask) : (*byte_ptr & ~mask);
 			return *this;
 		}
-		explicit operator bool() const {
-			uint8_t check = *byte_ptr & mask;
-			//std::cout << "conversion &: " << int(check) << std::endl;
-			return ((*byte_ptr & mask) != 0);
+		// added
+		bool operator ==(bool st) const {
+			uint8_t t = st ? 1 : 0;
+			return ((*byte_ptr & mask) == t);
 		}
+		bool operator !=(bool st) const {
+			return !(*this == st);
+		}
+		bool operator ==(const BitHolder& st) const {
+			return ((*byte_ptr & mask) == (*st.byte_ptr & st.mask));
+		}
+		explicit operator bool() const { return ((*byte_ptr & mask) != 0); }
 	};
-	int size;
-	uint8_t* set;
+	int size = 0;
+	uint8_t* set = nullptr;
 };
 std::ostream& operator<<(std::ostream& ostrm, const BitSet& bs);
 std::istream& operator>>(std::istream& istrm, BitSet& bs);
