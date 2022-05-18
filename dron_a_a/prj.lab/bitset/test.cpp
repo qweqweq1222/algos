@@ -186,18 +186,12 @@ TEST_CASE("XOR")
 	CHECK(first == result);
 }
 
-TEST_CASE("input/output") {
-	BitSet bitset;
-	std::stringstream input_stream;
-	input_stream << "111110104";
-	input_stream >> bitset;
-	CHECK(input_stream.fail());
-	input_stream << "100qweqeq";
-	input_stream >> bitset;
-	CHECK(input_stream.fail());
-	input_stream << "111101111";
-	input_stream >> bitset;
-	CHECK(input_stream.fail());
+TEST_CASE("& bool")
+{
+	BitSet bs(10,false);
+	const BitSet& cl(bs);
+	bool ch = cl[0];
+	CHECK(ch == false);
 }
 
 

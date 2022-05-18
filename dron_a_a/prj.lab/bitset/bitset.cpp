@@ -29,7 +29,7 @@ BitSet::BitSet(BitSet&& other):set(other.set), size(other.size)
 	other.size = 0;
 	other.set = nullptr;
 }
-BitSet& BitSet::operator = (BitSet&& other)
+BitSet& BitSet::operator = (BitSet&& other) noexcept
 {
 	if(this != &other)
 	{

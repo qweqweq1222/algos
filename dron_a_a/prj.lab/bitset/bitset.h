@@ -21,7 +21,7 @@ public:
 	BitSet(const int size, const bool val = false);
 	~BitSet() = default;
 	BitSet& operator = (const BitSet& other);
-	BitSet& operator = (BitSet&& other);
+	BitSet& operator = (BitSet&& other) noexcept ;
 	BitSet& operator |= (const BitSet& other);
 	BitSet& operator &= (const BitSet& other);
 	BitSet& operator ^= (const BitSet& other);
@@ -72,7 +72,4 @@ std::istream& operator>>(std::istream& istrm, BitSet& bs);
 const BitSet operator|(const BitSet& first, const BitSet& second);
 const BitSet operator&(const BitSet& first, const BitSet& second);
 const BitSet operator^(const BitSet& first, const BitSet& second);
-const BitSet operator^ (const BitSet& left, const BitSet& right);
-const BitSet operator& (const BitSet& left, const BitSet& right);
-const BitSet operator| (const BitSet& left, const BitSet& right);
 #endif //BitSet__BitSet_H
