@@ -1,7 +1,7 @@
 //
 // Created by anreydron on 26.03.2022.
 //
-#include "bitset.h"
+#include <bitset/bitset.h>
 #include <cmath>
 #include <iostream>
 #include <algorithm>
@@ -88,33 +88,39 @@ BitSet& BitSet::operator &= (const BitSet& other)
 {
 	if (size != other.size)
 		throw std::invalid_argument("l.size != r.size");
-	int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	/*int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
 	int other_length = (other.size % 8 == 0) ? int((other.size / 8)) : int((1 + (other.size / 8)));
 	int minimum = std::min(length, other_length);
 	for(int i = 0; i < minimum; ++i)
 		set[i] &= other.set[i];
 	for(int i = minimum; i < length; ++i)
-		set[i] = 0;
+		set[i] = 0;*/
+	for(int i = 0; i < size; ++i)
+		(*this)[i] = ((*this)[i] && other[i]);
 	return *this;
 }
 BitSet& BitSet::operator |= (const BitSet& other)
 {
 	if (size != other.size)
 		throw std::invalid_argument("l.size != r.size");
-	int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	/*int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
 	int other_length = (other.size % 8 == 0) ? int((other.size / 8)) : int((1 + (other.size / 8)));
 	int minimum = std::min(length, other_length);
 	for(int i = 0; i < minimum; ++i)
-		set[i] |= other.set[i];
+		set[i] |= other.set[i];*/
+	for(int i = 0; i < size; ++i)
+		(*this)[i] = ((*this)[i] || other[i]);
 	return *this;
 }
 BitSet& BitSet::operator ^= (const BitSet& other)
 {
 	if (size != other.size)
 		throw std::invalid_argument("l.size != r.size");
-	int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	/*int length = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
 	for(int i = 0; i < length; ++i)
-		set[i] ^= other.set[i];
+		set[i] ^= other.set[i];*/
+	for(int i = 0; i < size; ++i)
+		(*this)[i] = ((*this)[i] && !other[i]) || (!(*this)[i] && other[i]);
 	return *this;
 }
 void BitSet::Resize(const int size_)
@@ -191,17 +197,18 @@ std::istream& operator>>(std::istream& istrm, BitSet& bs) {
 }
 const BitSet  BitSet::operator~()
 {
-
 	BitSet bs = *this;
-	int len = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
+	/*int len = (size % 8 == 0) ? int((size / 8)) : int((1 + (size / 8)));
 	int tail = size % 8;
 	for (int i = 0; i < size / 8; ++i) {
 		bs.set[i] = ~set[i];
 	}
 	if (tail > 0) {
-		uint16_t mask = UINT8_MAX >> (8 - tail);
+		uint8_t mask = UINT8_MAX >> (8 - tail);
 		bs.set[len - 1] = mask & ~set[len - 1];
-	}
+	}*/
+	for(int i = 0; i < bs.size; ++i)
+		bs[i] = !bs[i];
 	return bs;
 }
 void BitSet::Fill(const bool val)

@@ -111,79 +111,66 @@ TEST_CASE("operators")
 {
 	SUBCASE("~")
 	{
-		int sz = 39;
-		BitSet first(sz, true);
-		BitSet second = ~first;
-		for (int i = 0; i < first.Size(); ++i)
-			CHECK(!second[i]);
+		int size = 100;
+		BitSet first(size,false);
+		BitSet second(size, true);
+		first = ~first;
+		CHECK(second == first);
+	}
+	SUBCASE("| |=")
+	{
+		int size = 100;
+		int num = rand()%size;
+		std::vector<int> true_pos;
+		for(int i = 0; i < num; ++i)
+		true_pos.emplace_back(rand()%size);
+		BitSet first(size,false);
+		BitSet second(size,false);
+		BitSet third(size,false);
+		for(auto& ps : true_pos)
+		{
+			third[ps] = true;
+			second[ps] = true;
+		}
+		BitSet res = first | second;
+		CHECK(third == res);
 	}
 	SUBCASE("& &=")
 	{
-		int size = 10;
-		BitSet first(size, true);
-		BitSet wrong_second(size + 1, true);
-		CHECK_THROWS(first & wrong_second);
-		CHECK_THROWS(first &= wrong_second);
-		BitSet second(size, true);
-		first[0] = 0;
-		first[1] = 0;
-		first[5] = 0;
-		BitSet result(size, true);
-		for (auto index : { 0, 1, 5 })
-			result[index] = false;
-		auto res = first & second;
-		CHECK(res == result);
-		first &= second;
-		CHECK(first == result);
+		int size = 5;
+		int num = rand()%size;
+		std::vector<int> true_pos;
+		for(int i = 0; i < num; ++i)
+			true_pos.emplace_back(rand()%size);
+		BitSet first(size,true);
+		BitSet second(size,true);
+		BitSet third(size,true);
+		for(auto& ps : true_pos)
+		{
+			third[ps] = false;
+			second[ps] = false;
+		}
+		BitSet res = first & second;
+		CHECK(third == res);
 	}
-	SUBCASE(" | ")
-	{
-		int size = 37;
-		BitSet first(size, true);
-		BitSet wrong_second(size + 1, true);
-		CHECK_THROWS(first | wrong_second);
-		CHECK_THROWS(first |= wrong_second);
-		BitSet second(size, true);
-		first[33] = 0;
-		first[20] = 0;
-		first[30] = 0;
-		first[15] = 0;
-		second[20] = 0;
-		second[1] = 0;
-		second[33] = 0;
-		second[4] = 0;
-		second[36] = 0;
-		BitSet result(size, true);
-		for (auto index : { 20, 33 })
-			result[index] = false;
-		auto res = first | second;
-		CHECK(res == result);
-		first |= second;
-		CHECK(first == result);
-	}
-}
-
-TEST_CASE("XOR")
-{
-	int size = 43;
-	BitSet first(size, true);
-	BitSet wrong_second(size + 1, true);
-	CHECK_THROWS(first ^ wrong_second);
-	CHECK_THROWS(first ^= wrong_second);
-	BitSet second(size, true);
-	first[20] = 0;
-	first[15] = 0;
-	second[20] = 0;
-	second[1] = 0;
-	second[4] = 0;
-	second[36] = 0;
-	BitSet result(size, false);
-	for (auto index : {1, 4, 15, 36})
-		result[index] = true;
-	auto res = first ^ second;
-	CHECK(res == result);
-	first ^= second;
-	CHECK(first == result);
+		SUBCASE("^ ^=")
+		{
+			int size = 5;
+			int num = rand()%size;
+			std::vector<int> true_pos;
+			for(int i = 0; i < num; ++i)
+			true_pos.emplace_back(rand()%size);
+			BitSet first(size,true);
+			BitSet second(size,true);
+			BitSet third(size,false);
+			for(auto& ps : true_pos)
+			{
+				third[ps] = true;
+				second[ps] = false;
+			}
+			BitSet res = first ^ second;
+			CHECK(third == res);
+		}
 }
 
 TEST_CASE("& bool")

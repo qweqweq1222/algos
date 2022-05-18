@@ -40,9 +40,7 @@ private:
 		uint8_t* byte_ptr;
 		uint8_t mask;
 		BitHolder() = delete;
-		BitHolder(uint8_t* byte_ptr, uint8_t mask) : byte_ptr(byte_ptr), mask(mask){
-			//std::cout << "bytes: " << int(*byte_ptr) << " mask: " << int(mask) << std::endl;
-		};
+		BitHolder(uint8_t* byte_ptr, uint8_t mask) : byte_ptr(byte_ptr), mask(mask){};
 		BitHolder(const BitHolder&) = delete;
 		BitHolder(BitHolder&&) = delete;
 		BitHolder& operator= (const BitHolder&) = default;
@@ -52,13 +50,14 @@ private:
 			return *this;
 		}
 		// added
-		bool operator ==(bool st) const {
+		/*bool operator ==(bool st) const {
 			uint8_t t = st ? 1 : 0;
+			uint8_t copy = *byte_ptr;
 			return ((*byte_ptr & mask) == t);
 		}
 		bool operator !=(bool st) const {
 			return !(*this == st);
-		}
+		}*/
 		bool operator ==(const BitHolder& st) const {
 			return ((*byte_ptr & mask) == (*st.byte_ptr & st.mask));
 		}
