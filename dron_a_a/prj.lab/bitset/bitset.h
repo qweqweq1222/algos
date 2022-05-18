@@ -63,8 +63,8 @@ private:
 		}
 		explicit operator bool() const { return ((*byte_ptr & mask) != 0); }
 	};
-	int size = 0;
 	uint8_t* set = nullptr;
+	int size = 0;
 };
 std::ostream& operator<<(std::ostream& ostrm, const BitSet& bs);
 std::istream& operator>>(std::istream& istrm, BitSet& bs);

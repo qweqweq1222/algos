@@ -39,6 +39,7 @@ BitSet& BitSet::operator = (BitSet&& other) noexcept
 		other.set = nullptr;
 		other.size = 0;
 	}
+	return *this;
 }
 void BitSet::operator << (const int len)
 {
